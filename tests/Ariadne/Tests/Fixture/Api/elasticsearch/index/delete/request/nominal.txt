@@ -1,0 +1,11 @@
+put /_bulk HTTP/1.1
+Host: localhost:9200
+Connection: close
+Accept-encoding: gzip, deflate
+User-Agent: Zend\Http\Client
+Content-Length: %d
+
+delete:
+  _index: article
+  _type: Ariadne\Tests\Fixture\Model\Article
+  _id: 1

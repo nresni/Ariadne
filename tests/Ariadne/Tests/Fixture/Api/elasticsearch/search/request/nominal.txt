@@ -1,0 +1,11 @@
+get /article/Ariadne\Tests\Fixture\Model\Article/_search HTTP/1.1
+Host: localhost:9200
+Connection: close
+Accept-encoding: gzip, deflate
+User-Agent: Zend\Http\Client
+Content-Length: %s
+
+query:
+  query_string:
+    query: "Chuck AND author.name:Norris"
+    default_field: title

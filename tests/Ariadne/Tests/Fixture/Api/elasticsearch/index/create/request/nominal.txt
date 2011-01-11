@@ -1,0 +1,38 @@
+put /article HTTP/1.1
+Host: localhost:9200
+Connection: close
+Accept-encoding: gzip, deflate
+User-Agent: Zend\Http\Client
+Content-Length: %d
+
+settings:
+  number_of_shards: 3
+  number_of_replicas: 2
+mappings:
+  Ariadne\Tests\Fixture\Model\Article:
+    properties:
+      title:
+        store: yes
+        type: string
+        index: analyzed
+        boost: 2.5
+      rate:
+        store: no
+        type: float
+        index: no
+        boost: 1
+      date:
+        store: no
+        type: date
+        index: no
+        boost: 1
+        format: Y-m-d
+        precision_step: 4
+      author:
+        type: object
+        properties:
+          name: 
+            store: yes
+            type: string
+            index: analyzed
+            boost: 2
