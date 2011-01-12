@@ -1,6 +1,6 @@
 HTTP/1.1 200 OK
 Access-Control-Allow-Origin: *
 Content-Type: application/json; charset=UTF-8
-Content-Length: 156
+Content-Length: 113
 
-{"items":[{"delete":{"_index":"article","_type":"Bundle\\Adenclassifieds\\SearchBundle\\Tests\\Functional\\Fixture\\Entity\\Article","_id":"1","ok":true}}]}
+{"items":[{"delete":{"_index":"article","_type":"Ariadne\\Tests\\Fixture\\Model\\Article","_id":"1","ok":true}}]}

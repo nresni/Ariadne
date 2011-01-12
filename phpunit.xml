@@ -11,6 +11,10 @@
          syntaxCheck="false"
          bootstrap="tests/bootstrap.php"
 >
+  <php>
+     <const name="HTTP_ADAPTER" value="false" />
+  </php>
+
   <testsuites>      
       <testsuite name="Bundle Test Suite">
           <directory>tests/Ariadne/Tests</directory>
