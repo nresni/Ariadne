@@ -50,7 +50,10 @@ class ResponseMapper implements BaseResponseMapper
     {
         foreach ($metadata->getFields() as $field) {
             $key = $field->getIndexName();
-            $parent->$key = $object->$key;
+
+            if (isset($object->$key)) {
+                $parent->$key = $object->$key;
+            }
         }
         foreach ($metadata->getEmbeds() as $name => $embed) {
             $embedMetadata = $metadata->getEmbeddedMetadata($name);
