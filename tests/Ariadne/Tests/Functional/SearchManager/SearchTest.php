@@ -54,7 +54,7 @@ class SearchTest extends BaseTest
 
         $query->getQueryString()->setQuery("Chuck AND author.name:Norris")->setDefaultField("title")->setDefaultOperator(Query::OPERATOR_OR);
 
-        $query->setStart(0)->setSize(10);
+        $query->setOffset(0)->setLimit(10);
 
         $this->assertEquals($this->getNominalResult(), $query->getResults());
 

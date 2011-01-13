@@ -40,12 +40,12 @@ class Query
     /**
      * @var integer start
      */
-    protected $start = 0;
+    protected $offset = 0;
 
     /**
      * @var integer size
      */
-    protected $size = 20;
+    protected $limit = 20;
 
     /**
      * Initialize related collections
@@ -58,37 +58,37 @@ class Query
     }
 
     /**
-     * @param integer size
+     * @param integer $limit
      */
-    public function setSize($size)
+    public function setLimit($limit)
     {
-        $this->size = $size;
+        $this->limit = $limit;
 
         return $this;
     }
 
     /**
-     * @return integer size
+     * @return integer $limit
      */
-    public function getSize()
+    public function getLimit()
     {
-        return $this->size;
+        return $this->limit;
     }
 
     /**
-     * @return integer from
+     * @return integer $offset
      */
-    public function getStart()
+    public function getOffset()
     {
-        return $this->start;
+        return $this->offset;
     }
 
     /**
-     * @param integer from
+     * @param integer $offset
      */
-    public function setStart($start)
+    public function setOffset($offset)
     {
-        $this->start = $start;
+        $this->offset = $offset;
 
         return $this;
     }

@@ -27,26 +27,26 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @cover Query::setSize
-     * @cover Query::getSize
+     * @cover Query::setLimit
+     * @cover Query::getLimit
      */
-    public function testSetSize()
+    public function testSetLimit()
     {
-        $this->assertSame($this->query, $this->query->setSize(10));
+        $this->assertSame($this->query, $this->query->setLimit(10));
 
-        $this->assertEquals(10, $this->query->getSize());
+        $this->assertEquals(10, $this->query->getLimit());
     }
 
     /**
      * @test
-     * @cover Query::setStart
-     * @cover Query::getStart
+     * @cover Query::setOffset
+     * @cover Query::getOffset
      */
-    public function testSetStart()
+    public function testSetOffset()
     {
-        $this->assertSame($this->query, $this->query->setStart(10));
+        $this->assertSame($this->query, $this->query->setOffset(10));
 
-        $this->assertEquals(10, $this->query->getStart());
+        $this->assertEquals(10, $this->query->getOffset());
     }
 
     /**

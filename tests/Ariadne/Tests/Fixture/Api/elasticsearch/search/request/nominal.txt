@@ -5,6 +5,8 @@ Accept-encoding: gzip, deflate
 User-Agent: Zend\Http\Client
 Content-Length: %s
 
+from: 0
+size: 10
 query:
   query_string:
     query: "Chuck AND author.name:Norris"

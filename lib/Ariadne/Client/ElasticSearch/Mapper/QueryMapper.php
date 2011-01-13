@@ -18,9 +18,9 @@ class QueryMapper implements BaseQueryMapper
     public function map(Query $query)
     {
         $map = array('query' => array());
-
+        $map['from'] = $query->getOffset();
+        $map['size'] = $query->getLimit();
         $queryString = $query->getQueryString();
-
         if ($queryString) {
             $map['query']['query_string'] = array();
             $map['query']['query_string']['query'] = $queryString->getQuery();
