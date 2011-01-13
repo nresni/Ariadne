@@ -3,11 +3,23 @@ namespace Ariadne\Response\Result;
 
 use Doctrine\Common\Collections\ArrayCollection;
 
-class Hit
+/**
+ * Reprensents a search Hit.
+ *
+ * @author David Stendardi <david.stendardi@gmail.com>
+ */
+class Hit implements \IteratorAggregate
 {
+    /**
+     * @var integer score
+     */
     protected $score;
 
+    /**
+     * @var stdClass $document
+     */
     protected $document;
+
     /**
      * @return the $document
      */
@@ -17,14 +29,24 @@ class Hit
     }
 
     /**
-     * @param field_type $document
+     * (non-PHPdoc)
+     * @see IteratorAggregate::getIterator()
+     */
+    public function getIterator()
+    {
+      return new \ArrayIterator($this->document);
+    }
+
+    /**
+     * @param stdClass $document
      */
     public function setDocument($document)
     {
         $this->document = $document;
     }
+
     /**
-     * @return the $score
+     * @return integer the $score
      */
     public function getScore()
     {
@@ -32,11 +54,10 @@ class Hit
     }
 
     /**
-     * @param field_type $score
+     * @param integer $score
      */
     public function setScore($score)
     {
         $this->score = $score;
     }
-
 }

@@ -27,42 +27,15 @@ class ResponseMapper implements BaseResponseMapper
         $foreign = json_decode($response->getBody());
 
         foreach ($foreign->hits->hits as $foreignHit) {
-
             $hit = new Hit();
-
             if ($proxyFactory) {
                 $hit->_proxy = $proxyFactory->getProxy($metadata->getClassName(), $foreignHit->_id);
 
             }
-
-            $hit = $this->mapHit($metadata, $foreignHit->_source, $hit, $proxyFactory);
-
+            $hit->setDocument($foreignHit->_source);
             $result->getHits()->add($hit);
         }
 
         return $result;
     }
-
-    /**
-     *
-     */
-    protected function mapHit(ClassMetadata $metadata, $object, $parent, $proxyFactory = null)
-    {
-        foreach ($metadata->getFields() as $field) {
-            $key = $field->getIndexName();
-
-            if (isset($object->$key)) {
-                $parent->$key = $object->$key;
-            }
-        }
-        foreach ($metadata->getEmbeds() as $name => $embed) {
-            $embedMetadata = $metadata->getEmbeddedMetadata($name);
-            if (isset($object->$name)) {
-                $parent->$name = $this->mapHit($embedMetadata, $object->$name, new \stdClass());
-            }
-        }
-
-        return $parent;
-    }
-
 }

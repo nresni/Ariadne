@@ -67,13 +67,17 @@ class SearchTest extends BaseTest
     {
         $expected = new Result();
 
-        $hit = new Hit();
-        $hit->title = "Chuck";
-        $hit->rate = 2.5;
-        $hit->date = '2009-08-10';
+        $doc = new \stdClass();
+        $doc->title = "Chuck";
+        $doc->rate = 2.5;
+        $doc->date = '2009-08-10';
 
-        $hit->author = new \stdClass();
-        $hit->author->name = 'Norris';
+        $doc->author = new \stdClass();
+        $doc->author->name = 'Norris';
+
+        $hit = new Hit();
+
+        $hit->setDocument($doc);
 
         $expected->getHits()->add($hit);
 

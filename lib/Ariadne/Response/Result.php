@@ -2,13 +2,21 @@
 namespace Ariadne\Response;
 
 use Ariadne\Response\Result\HitCollection;
-
+/**
+ * Reprensents a search result.
+ *
+ * @author David Stendardi <david.stendardi@gmail.com>
+ */
 class Result
 {
+    /**
+     * @var HitCollection hits
+     */
     protected $hits;
 
-    protected $metas;
-
+    /**
+     * Initialize collections
+     */
     public function __construct()
     {
         $this->hits = new HitCollection();
@@ -23,7 +31,7 @@ class Result
     }
 
     /**
-     * @param field_type $hits
+     * @param HitCollection $hits
      */
     public function setHits($hits)
     {
