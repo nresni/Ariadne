@@ -24,22 +24,6 @@ class QueryString
     protected $defaultOperator;
 
     /**
-     * Sets the query, and optional defaults fields and operator
-     *
-     * @param string $query
-     * @param string $defaultField
-     * @param integer $defaultOperator
-     */
-    public function __construct($query, $defaultField = null, $defaultOperator = Query::OPERATOR_OR)
-    {
-        $this->setQuery($query);
-
-        $this->setDefaultField($defaultField);
-
-        $this->setDefaultOperator($defaultOperator);
-    }
-
-    /**
      * @return the $defaultOperator
      */
     public function getDefaultOperator()
@@ -53,6 +37,8 @@ class QueryString
     public function setDefaultOperator($defaultOperator)
     {
         $this->defaultOperator = $defaultOperator;
+
+        return $this;
     }
 
     /**
@@ -69,6 +55,8 @@ class QueryString
     public function setQuery($query)
     {
         $this->query = $query;
+
+        return $this;
     }
 
     /**
@@ -85,6 +73,7 @@ class QueryString
     public function setDefaultField($defaultField)
     {
         $this->defaultField = $defaultField;
-    }
 
+        return $this;
+    }
 }

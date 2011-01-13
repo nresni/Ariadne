@@ -38,6 +38,16 @@ class Query
     protected $className;
 
     /**
+     * @var integer start
+     */
+    protected $start = 0;
+
+    /**
+     * @var integer size
+     */
+    protected $size = 20;
+
+    /**
      * Initialize related collections
      */
     public function __construct(SearchManager $manager, $className)
@@ -45,6 +55,42 @@ class Query
         $this->setClassName($className);
 
         $this->manager = $manager;
+    }
+
+    /**
+     * @param integer size
+     */
+    public function setSize($size)
+    {
+        $this->size = $size;
+
+        return $this;
+    }
+
+    /**
+     * @return integer size
+     */
+    public function getSize()
+    {
+        return $this->size;
+    }
+
+    /**
+     * @return integer from
+     */
+    public function getStart()
+    {
+        return $this->start;
+    }
+
+    /**
+     * @param integer from
+     */
+    public function setStart($start)
+    {
+        $this->start = $start;
+
+        return $this;
     }
 
     /**
@@ -60,6 +106,10 @@ class Query
      */
     public function getQueryString()
     {
+        if (null === $this->queryString) {
+            $this->queryString = new QueryString();
+        }
+
         return $this->queryString;
     }
 

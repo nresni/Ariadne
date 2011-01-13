@@ -6,7 +6,7 @@ use Ariadne\Tests\Fixture\Model\Article;
 use Ariadne\Tests\Fixture\Model\Author;
 use Ariadne\Response\Result\Hit;
 use Ariadne\Response\Result;
-use Ariadne\Query\QueryString;
+use Ariadne\Query\Query;
 
 /**
  * Enter description here ...
@@ -44,8 +44,7 @@ class SearchTest extends BaseTest
     }
 
     /**
-     *
-     * Enter description here ...
+     * @test
      */
     public function testSearch()
     {
@@ -53,7 +52,9 @@ class SearchTest extends BaseTest
 
         $query = $this->getSearchManager()->createQuery('Ariadne\Tests\Fixture\Model\Article');
 
-        $query->setQueryString(new QueryString("Chuck AND author.name:Norris", "title"));
+        $query->getQueryString()->setQuery("Chuck AND author.name:Norris")->setDefaultField("title")->setDefaultOperator(Query::OPERATOR_OR);
+
+        $query->setStart(0)->setSize(10);
 
         $this->assertEquals($this->getNominalResult(), $query->getResults());
 
