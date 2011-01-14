@@ -1,5 +1,5 @@
 <?php
-namespace Ariadne\Tests\Unit\DependencyInjection;
+namespace Ariadne\Tests\Unit\Client\ElasticSearch;
 
 use Ariadne\Client\ElasticSearch\ElasticSearchClient;
 

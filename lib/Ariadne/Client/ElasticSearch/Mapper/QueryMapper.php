@@ -1,6 +1,7 @@
 <?php
 namespace Ariadne\Client\ElasticSearch\Mapper;
 
+use Ariadne\Query\Sort;
 use Ariadne\Query\Query;
 use Ariadne\Client\Mapper\QueryMapper as BaseQueryMapper;
 
@@ -17,14 +18,17 @@ class QueryMapper implements BaseQueryMapper
      */
     public function map(Query $query)
     {
-        $map = array('query' => array());
         $map['from'] = $query->getOffset();
         $map['size'] = $query->getLimit();
-        $queryString = $query->getQueryString();
-        if ($queryString) {
+
+        if ($query->hasQueryString()) {
             $map['query']['query_string'] = array();
-            $map['query']['query_string']['query'] = $queryString->getQuery();
-            $map['query']['query_string']['default_field'] = $queryString->getDefaultField();
+            $map['query']['query_string']['query'] = $query->getQueryString()->getQuery();
+            $map['query']['query_string']['default_field'] = $query->getQueryString()->getDefaultField();
+        }
+
+        foreach ($query->getSort() as $field => $direction) {
+            $map['sort'][] = array($field => $direction);
         }
 
         return $map;

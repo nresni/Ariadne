@@ -4,7 +4,7 @@ namespace Ariadne\Tests\Fixture\Model;
  * A test entity
  *
  * @mongodb:Document(db="my_db", collection="articles")
- * @search:Index(name="article", idProperty="id", numberOfShards=3, numberOfReplicas=2)
+ * @search:Index(name="article", idProperty="id", numberOfShards=1, numberOfReplicas=1)
  */
 class Article
 {

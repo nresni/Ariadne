@@ -1,6 +1,8 @@
 <?php
 namespace Ariadne\Tests\Functional\SearchManager;
 
+use Ariadne\Query\Sort;
+
 use Ariadne\Tests\Functional\BaseTest;
 use Ariadne\Tests\Fixture\Model\Article;
 use Ariadne\Tests\Fixture\Model\Author;
@@ -53,6 +55,8 @@ class SearchTest extends BaseTest
         $query = $this->getSearchManager()->createQuery('Ariadne\Tests\Fixture\Model\Article');
 
         $query->getQueryString()->setQuery("Chuck AND author.name:Norris")->setDefaultField("title")->setDefaultOperator(Query::OPERATOR_OR);
+
+        $query->getSort()->addField('title', Sort::DESC)->addScore();
 
         $query->setOffset(0)->setLimit(10);
 

@@ -57,6 +57,7 @@ class SearchManager
      * Create a new query instance
      *
      * @param string class name
+     * @return Query $query
      */
     public function createQuery($className)
     {

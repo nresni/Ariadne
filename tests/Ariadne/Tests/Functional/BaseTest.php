@@ -37,7 +37,7 @@ use Ariadne\SearchManager;
  *
  * @author David Stendardi <david.stendardi@adenclassifieds.com>
  */
-class BaseTest extends \PHPUnit_Framework_TestCase
+abstract class BaseTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * The http client

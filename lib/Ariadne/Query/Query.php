@@ -1,11 +1,8 @@
 <?php
 namespace Ariadne\Query;
 
-use Doctrine\Common\Collections\ArrayCollection;
-
 use Ariadne\SearchManager;
-use Ariadne\Query\TermCollection;
-use Ariadne\Query\FacetCollection;
+use Ariadne\Query\Sort;
 
 /**
  * @author David Stendardi <david.stendardi@gmail.com>
@@ -48,6 +45,11 @@ class Query
     protected $limit = 20;
 
     /**
+     * @var Sort sort
+     */
+    protected $sort;
+
+    /**
      * Initialize related collections
      */
     public function __construct(SearchManager $manager, $className)
@@ -55,6 +57,8 @@ class Query
         $this->setClassName($className);
 
         $this->manager = $manager;
+
+        $this->sort = new Sort();
     }
 
     /**
@@ -102,6 +106,14 @@ class Query
     }
 
     /**
+     * @return boolean has query string
+     */
+    public function hasQueryString()
+    {
+        return null !== $this->queryString;
+    }
+
+    /**
      * @return the $queryStrings
      */
     public function getQueryString()
@@ -141,4 +153,13 @@ class Query
         return $this;
     }
 
+    /**
+     * Retunrs a list of sort definitions
+     *
+     * @return Sort sorts
+     */
+    public function getSort()
+    {
+        return $this->sort;
+    }
 }

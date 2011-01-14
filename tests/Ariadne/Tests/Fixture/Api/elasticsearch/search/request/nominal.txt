@@ -11,3 +11,8 @@ query:
   query_string:
     query: "Chuck AND author.name:Norris"
     default_field: title
+sort:
+  -
+    title: desc
+  -
+    _score: desc
