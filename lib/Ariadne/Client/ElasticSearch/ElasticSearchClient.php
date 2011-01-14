@@ -29,7 +29,7 @@ class ElasticSearchClient extends Client
 
         $this->httpClient->setRawData($data);
 
-        $response = $this->httpClient->request('get');
+        $response = $this->httpClient->request('GET');
 
         return $this->responseMapper->map($response, $metadata, $proxyFactory);
     }
@@ -69,7 +69,7 @@ class ElasticSearchClient extends Client
 
         $this->httpClient->setRawData($definition);
 
-        return $this->httpClient->request('put');
+        return $this->httpClient->request('PUT');
     }
 
     /**
@@ -88,7 +88,7 @@ class ElasticSearchClient extends Client
 
         $this->httpClient->setRawData($data);
 
-        return $this->httpClient->request('put');
+        return $this->httpClient->request('PUT');
     }
 
     /**
@@ -101,6 +101,6 @@ class ElasticSearchClient extends Client
 
         $this->httpClient->setUri("http://localhost:9200/$indexName");
 
-        return $this->httpClient->request('delete');
+        return $this->httpClient->request('DELETE');
     }
 }

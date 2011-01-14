@@ -1,6 +1,6 @@
 HTTP/1.1 200 OK
 Access-Control-Allow-Origin: *
 Content-Type: application/json; charset=UTF-8
-Content-Length: 295
+Content-Length: 296
 
-{"took":8,"_shards":{"total":5,"successful":5,"failed":0},"hits":{"total":1,"max_score":1.163388,"hits":[{"_index":"article","_type":"Ariadne\\Tests\\Fixture\\Model\\Article","_id":"1","_score":1.163388, "_source" : {"title":"Chuck","rate":2.5,"date":"2009-08-10","author":{"name":"Norris"}}}]}}
+{"took":61,"_shards":{"total":5,"successful":5,"failed":0},"hits":{"total":1,"max_score":1.163388,"hits":[{"_index":"article","_type":"Ariadne\\Tests\\Fixture\\Model\\Article","_id":"1","_score":1.163388, "_source" : {"title":"Chuck","rate":2.5,"date":"2009-08-10","author":{"name":"Norris"}}}]}}

@@ -1,4 +1,4 @@
-get /article/Ariadne\Tests\Fixture\Model\Article/_search HTTP/1.1
+GET /article/Ariadne\Tests\Fixture\Model\Article/_search HTTP/1.1
 Host: localhost:9200
 Connection: close
 Accept-encoding: gzip, deflate

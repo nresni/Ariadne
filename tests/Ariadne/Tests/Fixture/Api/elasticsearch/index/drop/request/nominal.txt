@@ -1,4 +1,4 @@
-delete /article HTTP/1.1
+DELETE /article HTTP/1.1
 Host: localhost:9200
 Connection: close
 Accept-encoding: gzip, deflate

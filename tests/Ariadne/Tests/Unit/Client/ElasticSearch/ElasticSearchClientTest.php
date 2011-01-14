@@ -69,7 +69,7 @@ class ElasticSearchClientTest extends \PHPUnit_Framework_TestCase
 
         $this->httpClient->expects($this->once())
         ->method('request')
-        ->with('get')
+        ->with('GET')
         ->will($this->returnValue($response));
 
         $this->httpClient->expects($this->once())
@@ -111,7 +111,7 @@ class ElasticSearchClientTest extends \PHPUnit_Framework_TestCase
 
         $this->httpClient->expects($this->once())
         ->method('request')
-        ->with('put');
+        ->with('PUT');
 
         $this->client->addToIndex($this->metadata, $objects);
     }
