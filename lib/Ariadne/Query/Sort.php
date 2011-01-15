@@ -31,7 +31,7 @@ class Sort implements \IteratorAggregate
      */
     public function addField($field, $direction = self::ASC)
     {
-        $this->sorts[$field] = $direction;
+        $this->sorts[] = array($field => $direction);
 
         return $this;
     }
@@ -43,7 +43,7 @@ class Sort implements \IteratorAggregate
      */
     public function addScore($direction = self::DESC)
     {
-        $this->sorts['_score'] = $direction;
+        $this->sorts[] = array('_score' =>  $direction);
 
         return $this;
     }

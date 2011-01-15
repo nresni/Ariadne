@@ -20,7 +20,7 @@ class Article
 
     /**
      * @var float rate
-     * @search:Field\Number(type="float", store="no", index="no")
+     * @search:Field\Number(type="float", index="yes")
      */
     public $rate;
 

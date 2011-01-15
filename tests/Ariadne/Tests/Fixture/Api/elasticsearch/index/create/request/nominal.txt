@@ -19,7 +19,7 @@ mappings:
       rate:
         store: no
         type: float
-        index: no
+        index: yes
         boost: 1
       date:
         store: no

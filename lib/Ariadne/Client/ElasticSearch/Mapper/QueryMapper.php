@@ -27,8 +27,8 @@ class QueryMapper implements BaseQueryMapper
             $map['query']['query_string']['default_field'] = $query->getQueryString()->getDefaultField();
         }
 
-        foreach ($query->getSort() as $field => $direction) {
-            $map['sort'][] = array($field => $direction);
+        foreach ($query->getSort() as $sort) {
+            $map['sort'][] = $sort;
         }
 
         return $map;

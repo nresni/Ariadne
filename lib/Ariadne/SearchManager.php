@@ -72,7 +72,7 @@ class SearchManager
      */
     public function createIndex($className)
     {
-        $metadata = $this->mapping->getClassMetadata($className);
+        $metadata = $this->getClassMetadata($className);
 
         return $this->client->createIndex($metadata);
     }
@@ -85,7 +85,7 @@ class SearchManager
      */
     public function dropIndex($className)
     {
-        $metadata = $this->mapping->getClassMetadata($className);
+        $metadata = $this->getClassMetadata($className);
 
         return $this->client->dropIndex($metadata);
     }
@@ -138,9 +138,18 @@ class SearchManager
      */
     public function search(Query $query)
     {
-        $metadata = $this->mapping->getClassMetadata($query->getClassName());
+        $metadata = $this->getClassMetadata($query->getClassName());
 
         return $this->client->search($metadata, $query, $this->proxyFactory);
+    }
+
+    /**
+     * @param string classname
+     * @return ClassMetadata $metadata
+     */
+    public function getClassMetadata($className)
+    {
+        return $this->mapping->getClassMetadata($className);
     }
 
     /**
