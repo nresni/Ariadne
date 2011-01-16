@@ -26,12 +26,15 @@ class ResponseMapper implements BaseResponseMapper
         $result = new Result();
         $foreign = json_decode($response->getBody());
 
+        $result->setTotal($foreign->hits->total);
+
         foreach ($foreign->hits->hits as $foreignHit) {
             $hit = new Hit();
             if ($proxyFactory) {
                 $hit->_proxy = $proxyFactory->getProxy($metadata->getClassName(), $foreignHit->_id);
-
             }
+
+            $hit->setScore($foreignHit->_score);
             $hit->setDocument($foreignHit->_source);
             $result->getHits()->add($hit);
         }

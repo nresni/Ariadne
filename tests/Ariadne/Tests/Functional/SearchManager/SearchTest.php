@@ -72,6 +72,8 @@ class SearchTest extends BaseTest
     {
         $expected = new Result();
 
+        $expected->setTotal(1);
+
         $doc = new \stdClass();
         $doc->title = "Chuck";
         $doc->rate = 2.5;
@@ -81,6 +83,7 @@ class SearchTest extends BaseTest
         $doc->author->name = 'Norris';
 
         $hit = new Hit();
+        $hit->setScore(1.163388);
 
         $hit->setDocument($doc);
 

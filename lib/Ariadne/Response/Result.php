@@ -15,6 +15,11 @@ class Result
     protected $hits;
 
     /**
+     * @var int total
+     */
+    protected $total;
+
+    /**
      * Initialize collections
      */
     public function __construct()
@@ -37,4 +42,20 @@ class Result
     {
         $this->hits = $hits;
     }
+    /**
+     * @return the $total
+     */
+    public function getTotal()
+    {
+        return $this->total;
+    }
+
+    /**
+     * @param int $total
+     */
+    public function setTotal($total)
+    {
+        $this->total = $total;
+    }
+
 }
