@@ -36,6 +36,10 @@ $steps->Then('/^I should have the following result$/', function($world, $table) 
 
    $hash = $table->getHash();
 
+   $count = count($hash);
+
+   assertEquals($count, count($world->result->getHits()));
+
    foreach($world->result->getHits() as $i => $hit) {
 
      foreach($hash[$i] as $name => $value)

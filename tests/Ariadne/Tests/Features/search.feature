@@ -23,9 +23,5 @@ Feature: Search
       And the query start from "0"
      When I run the query
      Then I should have the following result
-       | title       |
-       | chuck       |
-       | steven      |
-       | silvester   |
-       | arnold      |
-       | jean claude |
+       | title       | rate | date       |
+       | chuck       | 2.5  | 2009-10-12 |
