@@ -14,13 +14,13 @@ class Article
     public $id;
 
     /**
-     * @search:Field\String(store="yes", boost="2.5")
+     * @search:Field\String(store="yes", index="not_analyzed", boost="2.5")
      */
     public $title;
 
     /**
      * @var float rate
-     * @search:Field\Number(type="float", index="yes")
+     * @search:Field\Number(type="float", index="no")
      */
     public $rate;
 
