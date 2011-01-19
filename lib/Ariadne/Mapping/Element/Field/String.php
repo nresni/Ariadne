@@ -9,13 +9,6 @@ namespace Ariadne\Mapping\Element\Field;
 class String extends Semantic
 {
     /**
-     * Set to analyzed for the field to be indexed and searchable after being broken down into token using an analyzer. not_analyzed means that its still searchable, but does not go through any analysis process or broken down into tokens. no means that it won’t be searchable at all. Defaults to analyzed.
-     *
-     * @var string
-     */
-    protected $index = 'analyzed';
-
-    /**
      * Possible values are no, yes, with_offsets, with_positions, with_positions_offsets. Defaults to no.
      *
      * @var string

@@ -13,9 +13,9 @@ abstract class Semantic extends Field
     /**
      * Set to analyzed for the field to be indexed and searchable after being broken down into token using an analyzer. not_analyzed means that its still searchable, but does not go through any analysis process or broken down into tokens. no means that it won’t be searchable at all. Defaults to analyzed.
      *
-     * @var string
+     * @validation:Choice({"analyzed", "not_analyzed", "no"})
      */
-    protected $index = 'no';
+    protected $index = 'analyzed';
 
     /**
      * Set to yes the store actual field in the index, no to not store it. Defaults to no (note, the JSON document itself is stored, and it can be retrieved from it).

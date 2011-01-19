@@ -9,12 +9,6 @@ namespace Ariadne\Mapping\Element\Field;
 class Number extends Semantic
 {
     /**
-     * @var string the field type
-     * @validation:Choice({"yes", "no"})
-     */
-    public $index;
-
-    /**
      * @validation:Choice({"float", "double", "integer", "long"})
      */
     protected $type;

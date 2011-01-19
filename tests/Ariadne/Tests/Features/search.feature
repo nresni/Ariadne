@@ -42,7 +42,7 @@ Feature: Search
      Then I should have the following result
        | title       |
 
-  Scenario: Sorted search
+  Scenario: Sorted search by title desc
     Given A new query for "Ariadne\Tests\Fixture\Model\Article"
       And The query string is "*"
       And The query default field is "title"
@@ -56,6 +56,37 @@ Feature: Search
        | jean claude |
        | chuck       |
        | arnold      |
+
+  Scenario: Sorted search by title asc
+    Given A new query for "Ariadne\Tests\Fixture\Model\Article"
+      And The query string is "*"
+      And The query default field is "title"
+      And The query default operator is "or"
+      And The query is sorted by "title" "asc"
+     When I run the query
+     Then I should have the following result
+       | title       |
+       | arnold      |
+       | chuck       |
+       | jean claude |
+       | silvester   |
+       | steven      |
+       
+  Scenario: Sorted search by date desc
+    Given A new query for "Ariadne\Tests\Fixture\Model\Article"
+      And The query string is "*"
+      And The query default field is "title"
+      And The query default operator is "or"
+      And The query is sorted by "date" "desc"
+     When I run the query
+     Then I should have the following result
+       | title       |
+       | chuck       |
+       | steven      |
+       | jean claude |
+       | silvester   |
+       | arnold      |
+
 
   Scenario: Paginated search
     Given A new query for "Ariadne\Tests\Fixture\Model\Article"
