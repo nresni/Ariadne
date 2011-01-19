@@ -6,9 +6,9 @@ use Ariadne\Query\Query;
 use Ariadne\Client\Mapper\QueryMapper as BaseQueryMapper;
 
 /**
- * Maps the generic Query object to the Elastic search format.
+ * Query mapper implementation for ElasticSearch
  *
- * @author David Stendardi <david.stendardi@adenclassifieds.com>
+ * @author David Stendardi <david.stendardi@gmail.com>
  */
 class QueryMapper implements BaseQueryMapper
 {

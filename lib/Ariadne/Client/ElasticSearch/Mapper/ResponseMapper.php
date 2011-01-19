@@ -10,9 +10,9 @@ use Ariadne\Response\Result\Hit;
 use Ariadne\Client\Mapper\ResponseMapper as BaseResponseMapper;
 
 /**
- * Maps the specific result object to the generic one
+ * Response mapper implementation for ElasticSearch
  *
- * @author David Stendardi <david.stendardi@adenclassifieds.com>
+ * @author David Stendardi <david.stendardi@gmail.com>
  */
 class ResponseMapper implements BaseResponseMapper
 {

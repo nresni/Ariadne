@@ -10,7 +10,9 @@ use Ariadne\Mapping\Element\Field\Semantic;
 use Ariadne\Client\Mapper\IndexMapper as BaseIndexMapper;
 
 /**
- * @author David Stendardi <david.stendardi@adenclassifieds.com>
+ * Index mapper implementation for ElasticSearch
+ *
+ * @author David Stendardi <david.stendardi@gmail.com>
  */
 class IndexMapper implements BaseIndexMapper
 {

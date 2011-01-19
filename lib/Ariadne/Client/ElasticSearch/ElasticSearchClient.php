@@ -6,8 +6,9 @@ use Ariadne\Query\Query;
 use Ariadne\Mapping\ClassMetadata;
 
 /**
- * Enter description here ...
- * @author dstendardi
+ * Elastic Search Client
+ *
+ * @author David Stendardi <david.stendardi@gmail.com>
  */
 class ElasticSearchClient extends Client
 {
@@ -53,26 +54,6 @@ class ElasticSearchClient extends Client
     }
 
     /**
-     * @param $objects
-     */
-    protected function bulk($action, ClassMetadata $metadata, array $objects)
-    {
-        $this->httpClient->setUri("http://localhost:9200/_bulk");
-
-        $data = $this->indexMapper->$action($metadata, $objects);
-
-        $definition = '';
-
-        foreach ($data as $line) {
-            $definition .= json_encode($line) . "\n";
-        }
-
-        $this->httpClient->setRawData($definition);
-
-        return $this->httpClient->request('PUT');
-    }
-
-    /**
      * (non-PHPdoc)
      * @see Ariadne\Client.AbstractClient::createIndex()
      */
@@ -102,5 +83,29 @@ class ElasticSearchClient extends Client
         $this->httpClient->setUri("http://localhost:9200/$indexName");
 
         return $this->httpClient->request('DELETE');
+    }
+
+    /**
+     * Performs a bulk operation on the index.
+     *
+     * @param string $action
+     * @param ClassMetadata $metadata
+     * @param array $objects
+     */
+    protected function bulk($action, ClassMetadata $metadata, array $objects)
+    {
+        $this->httpClient->setUri("http://localhost:9200/_bulk");
+
+        $data = $this->indexMapper->$action($metadata, $objects);
+
+        $definition = '';
+
+        foreach ($data as $line) {
+            $definition .= json_encode($line) . "\n";
+        }
+
+        $this->httpClient->setRawData($definition);
+
+        return $this->httpClient->request('PUT');
     }
 }

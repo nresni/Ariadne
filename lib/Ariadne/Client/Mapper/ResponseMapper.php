@@ -7,10 +7,15 @@ use Ariadne\Mapping\ClassMetadata;
 use Ariadne\Response\Result;
 use Ariadne\Query\Query;
 
+/**
+ * Response Mapper
+ *
+ * @author David Stendardi <david.stendardi@gmail.com>
+ */
 interface ResponseMapper
 {
     /**
-     * Map the query object to the vendor's expected format
+     * Map the response to the generic response object
      *
      * @param Query $query
      * @param ClassMetadata
