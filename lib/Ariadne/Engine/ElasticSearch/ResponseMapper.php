@@ -1,5 +1,5 @@
 <?php
-namespace Ariadne\Client\ElasticSearch\Mapper;
+namespace Ariadne\Engine\ElasticSearch;
 
 use Zend\Http\Response;
 
@@ -7,14 +7,13 @@ use Ariadne\Mapping\ClassMetadata;
 use Ariadne\Response\Result;
 use Ariadne\Response\Result\HitCollection;
 use Ariadne\Response\Result\Hit;
-use Ariadne\Client\Mapper\ResponseMapper as BaseResponseMapper;
 
 /**
  * Response mapper implementation for ElasticSearch
  *
  * @author David Stendardi <david.stendardi@gmail.com>
  */
-class ResponseMapper implements BaseResponseMapper
+class ResponseMapper
 {
     /**
      * (non-PHPdoc)

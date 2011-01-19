@@ -1,17 +1,60 @@
 <?php
-namespace Ariadne\Client\ElasticSearch;
+namespace Ariadne\Engine;
+
+use Zend\Http\Client as HttpClient;
 
 use Ariadne\Client\Client;
 use Ariadne\Query\Query;
 use Ariadne\Mapping\ClassMetadata;
+use Ariadne\Engine\ElasticSearch\ResponseMapper;
+use Ariadne\Engine\ElasticSearch\QueryMapper;
+use Ariadne\Engine\ElasticSearch\IndexMapper;
 
 /**
  * Elastic Search Client
  *
  * @author David Stendardi <david.stendardi@gmail.com>
  */
-class ElasticSearchClient extends Client
+class ElasticSearch implements Engine
 {
+    /**
+     * @var QueryMapper
+     */
+    protected $queryMapper;
+
+    /**
+     * @var ResultMapper
+     */
+    protected $responseMapper;
+
+    /**
+     * Http client
+     *
+     * @var Client $client
+     */
+    protected $httpClient;
+
+    /**
+     * @var IndexMapper
+     */
+    protected $indexMapper;
+
+    /**
+     * Set required dependencies
+     *
+     * @param Client http client
+     */
+    public function __construct(HttpClient $httpClient, IndexMapper $indexMapper, QueryMapper $queryMapper, ResponseMapper $responseMapper)
+    {
+        $this->httpClient = $httpClient;
+
+        $this->indexMapper = $indexMapper;
+
+        $this->queryMapper = $queryMapper;
+
+        $this->responseMapper = $responseMapper;
+    }
+
     /**
      * (non-PHPdoc)
      * @see Ariadne\Client.AbstractClient::search()

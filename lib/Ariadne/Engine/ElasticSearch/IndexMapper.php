@@ -1,5 +1,5 @@
 <?php
-namespace Ariadne\Client\ElasticSearch\Mapper;
+namespace Ariadne\Engine\ElasticSearch;
 
 use Ariadne\Mapping\ClassMetadata;
 use Ariadne\Mapping\Element\Embed;
@@ -7,14 +7,13 @@ use Ariadne\Mapping\Element\Field\Date;
 use Ariadne\Mapping\Element\Field\Number;
 use Ariadne\Mapping\Element\Field\String;
 use Ariadne\Mapping\Element\Field\Semantic;
-use Ariadne\Client\Mapper\IndexMapper as BaseIndexMapper;
 
 /**
  * Index mapper implementation for ElasticSearch
  *
  * @author David Stendardi <david.stendardi@gmail.com>
  */
-class IndexMapper implements BaseIndexMapper
+class IndexMapper
 {
     /**
      * (non-PHPdoc)

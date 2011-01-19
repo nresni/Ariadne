@@ -1,16 +1,15 @@
 <?php
-namespace Ariadne\Client\ElasticSearch\Mapper;
+namespace Ariadne\Engine\ElasticSearch;
 
 use Ariadne\Query\Sort;
 use Ariadne\Query\Query;
-use Ariadne\Client\Mapper\QueryMapper as BaseQueryMapper;
 
 /**
  * Query mapper implementation for ElasticSearch
  *
  * @author David Stendardi <david.stendardi@gmail.com>
  */
-class QueryMapper implements BaseQueryMapper
+class QueryMapper
 {
     /**
      * (non-PHPdoc)

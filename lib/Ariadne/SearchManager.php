@@ -1,7 +1,7 @@
 <?php
 namespace Ariadne;
 
-use Ariadne\Client\Client;
+use Ariadne\Engine\Engine;
 use Ariadne\Query\Mapper;
 use Ariadne\Query\Query;
 use Ariadne\Mapping\ClassMetadataFactory;
@@ -46,7 +46,7 @@ class SearchManager
      * @param ClassMetadataFactory $mapping
      * @param Client http client
      */
-    public function __construct(ClassMetadataFactory $mapping, Client $client)
+    public function __construct(ClassMetadataFactory $mapping, Engine $client)
     {
         $this->mapping = $mapping;
 
