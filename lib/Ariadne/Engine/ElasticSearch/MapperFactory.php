@@ -2,7 +2,10 @@
 namespace Ariadne\Engine\ElasticSearch;
 
 /**
- * MapperFactory
+ * The mapper factory is used to lazy instanciate mappers.
+ * Mappers are generic object that transforms generic objects
+ * into an array definition that will be formatted inside the
+ * request
  *
  * @author David Stendardi <david.stendardi@gmail.com>
  */
@@ -24,9 +27,9 @@ class MapperFactory
         );
 
     /**
+     * Options are used to overrides the default class provided
      *
-     * Enter description here ...
-     * @param unknown_type $options
+     * @param array $options
      */
     public function __construct(array $options = array())
     {
