@@ -25,8 +25,8 @@ use Symfony\Component\Console\Input\ArrayInput;
 use Zend\Http\Client;
 
 // elastic search client
-use Ariadne\Engine\ElasticSearch\MapperFactory;
-use Ariadne\Engine\ElasticSearch;
+use Ariadne\Client\ElasticSearchClient;
+use Ariadne\Driver\ElasticSearchDriver;
 
 // mapping
 use Ariadne\Mapping\Loader\AnnotationLoader;
@@ -35,10 +35,6 @@ use Ariadne\SearchManager;
 
 
 $world->httpClient = new Client();
-
-//$world->httpClient->setAdapter('Ariadne\Http\Client\Adapter\Test');
-
-//$world->httpClient->getAdapter()->setFixturesBasePath(realpath(__DIR__ . '/../../Fixture/Api'));
 
 $loader = new ValidatorAnnotationLoader();
 
@@ -54,9 +50,11 @@ $loader = new AnnotationLoader($reader, $validator);
 
 $mapping = new ClassMetadataFactory($loader);
 
-$engine = new ElasticSearch($world->httpClient, new MapperFactory());
+$client = new ElasticSearchClient($world->httpClient);
 
-$world->searchManager = new SearchManager($mapping, $engine);
+$driver = new ElasticSearchDriver($client);
+
+$world->searchManager = new SearchManager($mapping, $driver);
 
 
 

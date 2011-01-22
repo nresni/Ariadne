@@ -1,6 +1,8 @@
 <?php
 namespace Ariadne;
 
+use Ariadne\Driver\BaseDriver;
+
 use Ariadne\Engine\Engine;
 use Ariadne\Query\Mapper;
 use Ariadne\Query\Query;
@@ -21,9 +23,9 @@ class SearchManager
     protected $mapping;
 
     /**
-     * @var Engine $engine
+     * @var Engine $driver
      */
-    protected $engine;
+    protected $driver;
 
     /**
      * @var ProxyFactory
@@ -46,11 +48,11 @@ class SearchManager
      * @param ClassMetadataFactory $mapping
      * @param Client http engine
      */
-    public function __construct(ClassMetadataFactory $mapping, Engine $engine)
+    public function __construct(ClassMetadataFactory $mapping, BaseDriver $driver)
     {
         $this->mapping = $mapping;
 
-        $this->engine = $engine;
+        $this->driver = $driver;
     }
 
     /**
@@ -74,7 +76,7 @@ class SearchManager
     {
         $metadata = $this->getClassMetadata($className);
 
-        return $this->engine->createIndex($metadata);
+        return $this->driver->createIndex($metadata);
     }
 
     /**
@@ -87,7 +89,7 @@ class SearchManager
     {
         $metadata = $this->getClassMetadata($className);
 
-        return $this->engine->dropIndex($metadata);
+        return $this->driver->dropIndex($metadata);
     }
 
     /**
@@ -114,7 +116,7 @@ class SearchManager
         foreach ($this->insertions as $class => $objects) {
             $metadata = $this->mapping->getClassMetadata($class);
 
-            $this->engine->addToIndex($metadata, $objects);
+            $this->driver->addToIndex($metadata, $objects);
         }
 
         $this->insertions = array();
@@ -122,7 +124,7 @@ class SearchManager
         foreach ($this->deletions as $class => $objects) {
             $metadata = $this->mapping->getClassMetadata($class);
 
-            $this->engine->removeFromIndex($metadata, $objects);
+            $this->driver->removeFromIndex($metadata, $objects);
         }
 
         $this->deletions = array();
@@ -138,7 +140,7 @@ class SearchManager
     {
         $metadata = $this->getClassMetadata($query->getClassName());
 
-        return $this->engine->search($metadata, $query);
+        return $this->driver->search($metadata, $query);
     }
 
     /**
@@ -159,18 +161,18 @@ class SearchManager
     }
 
     /**
-     * @return the $engine
+     * @return the $driver
      */
-    public function getEngine()
+    public function getDriver()
     {
-        return $this->engine;
+        return $this->driver;
     }
 
     /**
-     * @param Engine $engine
+     * @param Engine $driver
      */
-    public function setEngine($engine)
+    public function setDriver($driver)
     {
-        $this->engine = $engine;
+        $this->driver = $driver;
     }
 }

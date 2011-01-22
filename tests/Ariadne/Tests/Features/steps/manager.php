@@ -1,10 +1,12 @@
 <?php
-use Ariadne\Engine\ElasticSearch\MapperFactory;
-use Ariadne\Engine\ElasticSearch;
+use Ariadne\Client\ElasticSearchClient;
+use Ariadne\Driver\ElasticSearchDriver;
 
 $steps->Given('/^My search backend is ElasticSearch$/', function($world) {
 
-    $engine = new ElasticSearch($world->httpClient, new MapperFactory());
+    $client = new ElasticSearchClient($world->httpClient);
 
-    $world->searchManager->setEngine($engine);
+    $driver = new ElasticSearchDriver($client);
+
+    $world->searchManager->setDriver($driver);
 });

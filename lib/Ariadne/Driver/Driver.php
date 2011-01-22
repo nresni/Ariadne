@@ -1,5 +1,5 @@
 <?php
-namespace Ariadne\Engine;
+namespace Ariadne\Driver;
 
 use Ariadne\Mapping\ClassMetadata;
 use Ariadne\Query\Query;
@@ -12,7 +12,7 @@ use Ariadne\Response\Result;
  *
  * @author David Stendardi <david.stendardi@adenclassifieds.com>
  */
-interface Engine
+interface Driver
 {
     /**
      * Search inside the index & type configured in the metadata

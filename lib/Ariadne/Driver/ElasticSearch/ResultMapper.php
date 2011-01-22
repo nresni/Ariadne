@@ -1,5 +1,5 @@
 <?php
-namespace Ariadne\Engine\ElasticSearch\Mapper;
+namespace Ariadne\Driver\ElasticSearch;
 
 use Zend\Http\Response;
 
