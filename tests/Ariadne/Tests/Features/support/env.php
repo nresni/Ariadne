@@ -25,9 +25,7 @@ use Symfony\Component\Console\Input\ArrayInput;
 use Zend\Http\Client;
 
 // elastic search client
-use Ariadne\Engine\ElasticSearch\ResponseMapper;
-use Ariadne\Engine\ElasticSearch\QueryMapper;
-use Ariadne\Engine\ElasticSearch\IndexMapper;
+use Ariadne\Engine\ElasticSearch\MapperFactory;
 use Ariadne\Engine\ElasticSearch;
 
 // mapping
@@ -56,13 +54,7 @@ $loader = new AnnotationLoader($reader, $validator);
 
 $mapping = new ClassMetadataFactory($loader);
 
-$indexMapper = new IndexMapper();
-
-$queryMapper = new QueryMapper();
-
-$responseMapper = new ResponseMapper();
-
-$engine = new ElasticSearch($world->httpClient, $indexMapper, $queryMapper, $responseMapper);
+$engine = new ElasticSearch($world->httpClient, new MapperFactory());
 
 $world->searchManager = new SearchManager($mapping, $engine);
 

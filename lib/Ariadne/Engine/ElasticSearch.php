@@ -1,6 +1,8 @@
 <?php
 namespace Ariadne\Engine;
 
+use Ariadne\Engine\ElasticSearch\MapperFactory;
+
 use Zend\Http\Client as HttpClient;
 
 use Ariadne\Client\Client;
@@ -18,16 +20,6 @@ use Ariadne\Engine\ElasticSearch\IndexMapper;
 class ElasticSearch implements Engine
 {
     /**
-     * @var QueryMapper
-     */
-    protected $queryMapper;
-
-    /**
-     * @var ResultMapper
-     */
-    protected $responseMapper;
-
-    /**
      * Http client
      *
      * @var Client $client
@@ -35,29 +27,27 @@ class ElasticSearch implements Engine
     protected $httpClient;
 
     /**
-     * @var IndexMapper
+     *
+     * Enter description here ...
+     * @var unknown_type
      */
-    protected $indexMapper;
+    protected $mapperFactory;
 
     /**
      * Set required dependencies
      *
      * @param Client http client
      */
-    public function __construct(HttpClient $httpClient, IndexMapper $indexMapper, QueryMapper $queryMapper, ResponseMapper $responseMapper)
+    public function __construct(HttpClient $httpClient, MapperFactory $mapperFactory)
     {
         $this->httpClient = $httpClient;
 
-        $this->indexMapper = $indexMapper;
-
-        $this->queryMapper = $queryMapper;
-
-        $this->responseMapper = $responseMapper;
+        $this->mapperFactory = $mapperFactory;
     }
 
     /**
      * (non-PHPdoc)
-     * @see Ariadne\Client.AbstractClient::search()
+     * @see Ariadne\Engine.Engine::search()
      */
     public function search(ClassMetadata $metadata, Query $query, $proxyFactory = null)
     {
@@ -67,7 +57,7 @@ class ElasticSearch implements Engine
 
         $this->httpClient->setUri("http://localhost:9200/$indexName/$typeName/_search");
 
-        $query = $this->queryMapper->map($query);
+        $query = $this->mapperFactory->get('query')->map($query);
 
         $data = json_encode($query);
 
@@ -75,12 +65,12 @@ class ElasticSearch implements Engine
 
         $response = $this->httpClient->request('GET');
 
-        return $this->responseMapper->map($response, $metadata, $proxyFactory);
+        return $this->mapperFactory->get('result')->map($response, $metadata, $proxyFactory);
     }
 
     /**
      * (non-PHPdoc)
-     * @see Ariadne\Client.Client::addToIndex()
+     * @see Ariadne\Engine.Engine::addToIndex()
      */
     public function addToIndex(ClassMetadata $metadata, array $objects)
     {
@@ -98,7 +88,7 @@ class ElasticSearch implements Engine
 
     /**
      * (non-PHPdoc)
-     * @see Ariadne\Client.AbstractClient::createIndex()
+     * @see Ariadne\Engine.Engine::createIndex()
      */
     public function createIndex(ClassMetadata $metadata)
     {
@@ -106,7 +96,7 @@ class ElasticSearch implements Engine
 
         $this->httpClient->setUri("http://localhost:9200/$indexName");
 
-        $definition = $this->indexMapper->create($metadata);
+        $definition = $this->mapperFactory->get('schema')->map($metadata);
 
         $data = json_encode($definition);
 
@@ -117,7 +107,7 @@ class ElasticSearch implements Engine
 
     /**
      * (non-PHPdoc)
-     * @see Ariadne\Client.AbstractClient::dropIndex()
+     * @see Ariadne\Engine.Engine::dropIndex()
      */
     public function dropIndex(ClassMetadata $metadata)
     {
@@ -139,7 +129,7 @@ class ElasticSearch implements Engine
     {
         $this->httpClient->setUri("http://localhost:9200/_bulk");
 
-        $data = $this->indexMapper->$action($metadata, $objects);
+        $data = $this->mapperFactory->get('index')->$action($metadata, $objects);
 
         $definition = '';
 

@@ -1,5 +1,5 @@
 <?php
-namespace Ariadne\Engine\ElasticSearch;
+namespace Ariadne\Engine\ElasticSearch\Mapper;
 
 use Ariadne\Query\Sort;
 use Ariadne\Query\Query;

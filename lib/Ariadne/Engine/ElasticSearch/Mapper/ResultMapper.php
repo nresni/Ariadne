@@ -1,5 +1,5 @@
 <?php
-namespace Ariadne\Engine\ElasticSearch;
+namespace Ariadne\Engine\ElasticSearch\Mapper;
 
 use Zend\Http\Response;
 
@@ -13,7 +13,7 @@ use Ariadne\Response\Result\Hit;
  *
  * @author David Stendardi <david.stendardi@gmail.com>
  */
-class ResponseMapper
+class ResultMapper
 {
     /**
      * (non-PHPdoc)
