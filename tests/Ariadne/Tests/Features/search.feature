@@ -11,6 +11,7 @@ Feature: Search
       | 3  | silvester   | 3.4  | 2004-05-20 |
       | 4  | arnold      | 2.4  | 2003-09-04 |
       | 5  | jean claude | 1.4  | 2005-09-10 |
+      And My search backend is ElasticSearch
 
   Scenario: Simple keyword search
     Given A new query for "Ariadne\Tests\Fixture\Model\Article"

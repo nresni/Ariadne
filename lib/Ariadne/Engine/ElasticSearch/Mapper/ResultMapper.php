@@ -32,10 +32,6 @@ class ResultMapper
 
         foreach ($foreign->hits->hits as $foreignHit) {
             $hit = new Hit();
-            if ($proxyFactory) {
-                $hit->_proxy = $proxyFactory->getProxy($metadata->getClassName(), $foreignHit->_id);
-            }
-
             $hit->setScore($foreignHit->_score);
             $hit->setDocument($foreignHit->_source);
             $result->getHits()->add($hit);

@@ -21,9 +21,9 @@ class SearchManager
     protected $mapping;
 
     /**
-     * @var Client $client
+     * @var Engine $engine
      */
-    protected $client;
+    protected $engine;
 
     /**
      * @var ProxyFactory
@@ -44,13 +44,13 @@ class SearchManager
      * Set required dependencies
      *
      * @param ClassMetadataFactory $mapping
-     * @param Client http client
+     * @param Client http engine
      */
-    public function __construct(ClassMetadataFactory $mapping, Engine $client)
+    public function __construct(ClassMetadataFactory $mapping, Engine $engine)
     {
         $this->mapping = $mapping;
 
-        $this->client = $client;
+        $this->engine = $engine;
     }
 
     /**
@@ -74,7 +74,7 @@ class SearchManager
     {
         $metadata = $this->getClassMetadata($className);
 
-        return $this->client->createIndex($metadata);
+        return $this->engine->createIndex($metadata);
     }
 
     /**
@@ -87,7 +87,7 @@ class SearchManager
     {
         $metadata = $this->getClassMetadata($className);
 
-        return $this->client->dropIndex($metadata);
+        return $this->engine->dropIndex($metadata);
     }
 
     /**
@@ -111,20 +111,18 @@ class SearchManager
      */
     public function flush()
     {
-        foreach($this->insertions as $class => $objects)
-        {
+        foreach ($this->insertions as $class => $objects) {
             $metadata = $this->mapping->getClassMetadata($class);
 
-            $this->client->addToIndex($metadata, $objects);
+            $this->engine->addToIndex($metadata, $objects);
         }
 
         $this->insertions = array();
 
-        foreach($this->deletions as $class => $objects)
-        {
+        foreach ($this->deletions as $class => $objects) {
             $metadata = $this->mapping->getClassMetadata($class);
 
-            $this->client->removeFromIndex($metadata, $objects);
+            $this->engine->removeFromIndex($metadata, $objects);
         }
 
         $this->deletions = array();
@@ -140,7 +138,7 @@ class SearchManager
     {
         $metadata = $this->getClassMetadata($query->getClassName());
 
-        return $this->client->search($metadata, $query, $this->proxyFactory);
+        return $this->engine->search($metadata, $query);
     }
 
     /**
@@ -158,5 +156,21 @@ class SearchManager
     public function setProxyFactory($proxyFactory)
     {
         $this->proxyFactory = $proxyFactory;
+    }
+
+    /**
+     * @return the $engine
+     */
+    public function getEngine()
+    {
+        return $this->engine;
+    }
+
+    /**
+     * @param Engine $engine
+     */
+    public function setEngine($engine)
+    {
+        $this->engine = $engine;
     }
 }

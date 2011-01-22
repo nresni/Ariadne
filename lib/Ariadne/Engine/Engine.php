@@ -22,7 +22,7 @@ interface Engine
      * @param Query $query
      * @return Result
      */
-    public function search(ClassMetadata $metadata, Query $query, $proxyFactory = null);
+    public function search(ClassMetadata $metadata, Query $query);
 
     /**
      * Creates the index configured in the given class metadata

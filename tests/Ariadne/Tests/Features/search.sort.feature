@@ -11,6 +11,7 @@ Feature: Search
       | 3  | silvester   | 3.4  | 2004-05-20 |
       | 4  | arnold      | 2.4  | 2003-09-04 |
       | 5  | jean claude | 1.4  | 2005-09-10 |
+     And My search backend is ElasticSearch
      And A new query for "Ariadne\Tests\Fixture\Model\Article"
 
   Scenario: All sorted by title DESC
@@ -35,12 +36,8 @@ Feature: Search
      When I run the query
      Then I should have the following result
        | title       |
-       | chuck       |
-       | steven      |
-       | silvester   |
        | arnold      |
+       | silvester   |
        | jean claude |
-
-
-
-
+       | steven      |
+       | chuck       |

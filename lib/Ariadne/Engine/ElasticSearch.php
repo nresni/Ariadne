@@ -49,7 +49,7 @@ class ElasticSearch implements Engine
      * (non-PHPdoc)
      * @see Ariadne\Engine.Engine::search()
      */
-    public function search(ClassMetadata $metadata, Query $query, $proxyFactory = null)
+    public function search(ClassMetadata $metadata, Query $query)
     {
         $indexName = $metadata->getIndex()->getName();
 
@@ -65,7 +65,7 @@ class ElasticSearch implements Engine
 
         $response = $this->httpClient->request('GET');
 
-        return $this->mapperFactory->get('result')->map($response, $metadata, $proxyFactory);
+        return $this->mapperFactory->get('result')->map($response, $metadata);
     }
 
     /**
