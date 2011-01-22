@@ -10,10 +10,12 @@ use Ariadne\Mapping\ClassMetadata;
  */
 class IndexMapper
 {
-
     /**
-     * (non-PHPdoc)
-     * @see Ariadne\Client\Mapper.IndexMapper::add()
+     * Transforms given objects into a bulk add operation directive
+     *
+     * @param ClassMetadata $metadata
+     * @param array $objects
+     * @param array bulk commands
      */
     public function add(ClassMetadata $metadata, array $objects)
     {
@@ -30,8 +32,11 @@ class IndexMapper
     }
 
     /**
-     * (non-PHPdoc)
-     * @see Ariadne\Client\Mapper.IndexMapper::remove()
+     * Transforms given objects into a bulk delete operation
+     *
+     * @param ClassMetadata $metadata
+     * @param array $objects
+     * @return array bulk commands
      */
     public function remove(ClassMetadata $metadata, array $objects)
     {
@@ -51,6 +56,7 @@ class IndexMapper
      *
      * @param ClassMetadata $metadata
      * @param stdClass $object
+     * @return array object
      */
     public function exportObject(ClassMetadata $metadata, $object)
     {

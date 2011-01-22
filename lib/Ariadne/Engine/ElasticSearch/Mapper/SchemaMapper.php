@@ -16,8 +16,9 @@ use Ariadne\Mapping\Element\Field\Semantic;
 class SchemaMapper
 {
     /**
-     * (non-PHPdoc)
-     * @see Ariadne\Client.IndexMapper::create()
+     * Transforms object metadata into a mapping definition
+     *
+     * @param ClassMetadata $metadata
      */
     public function map(ClassMetadata $metadata)
     {

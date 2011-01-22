@@ -5,15 +5,16 @@ use Ariadne\Query\Sort;
 use Ariadne\Query\Query;
 
 /**
- * Query mapper implementation for ElasticSearch
+ * QueryMapper
  *
  * @author David Stendardi <david.stendardi@gmail.com>
  */
 class QueryMapper
 {
     /**
-     * (non-PHPdoc)
-     * @see Ariadne\Client\Mapper.QueryMapper::map()
+     * Transforms a generic Query object into an Elastic Search query DSL
+     *
+     * @param Query $query
      */
     public function map(Query $query)
     {

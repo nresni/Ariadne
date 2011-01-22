@@ -27,9 +27,9 @@ class ElasticSearch implements Engine
     protected $httpClient;
 
     /**
+     * Mapper factory
      *
-     * Enter description here ...
-     * @var unknown_type
+     * @var MapperFactory
      */
     protected $mapperFactory;
 
