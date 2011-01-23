@@ -1,56 +1,101 @@
 <?php
 namespace Ariadne\Driver;
 
-use Ariadne\Mapping\ClassMetadata;
 use Ariadne\Query\Query;
-use Ariadne\Response\Result;
+use Ariadne\Mapping\ClassMetadata;
 
 /**
- * Base class for search abstraction layer
- * Delegates index creation / dropping / search definition translations to the specific
- * mapper objects
+ * The mapper factory is used to lazy instanciate mappers.
+ * Mappers are generic object that transforms generic objects
+ * into an array definition that will be formatted inside the
+ * request
  *
- * @author David Stendardi <david.stendardi@adenclassifieds.com>
+ * @author David Stendardi <david.stendardi@gmail.com>
  */
-interface Driver
+abstract class Driver
 {
     /**
-     * Search inside the index & type configured in the metadata
-     * and returns a generic result object
-     *
-     * @param ClassMetadata $metadata
-     * @param Query $query
-     * @return Result
+     * @var array mappers
      */
-    public function search(ClassMetadata $metadata, Query $query);
+    protected $commands = array();
 
     /**
-     * Creates the index configured in the given class metadata
-     *
-     * @param ClassMetadata $metadata
+     * @return String Driver name
      */
-    public function createIndex(ClassMetadata $metadata);
+    abstract public function getName();
 
     /**
-     * Drops the index configured in the given class metadata
-     *
-     * @param ClassMetadata $metadata
+     * @return Array a list of available commands
      */
-    public function dropIndex(ClassMetadata $metadata);
+    abstract public function getAvailableCommands();
 
     /**
-     * Add given objects to the index
-     *
-     * @param ClassMetadata $metadata
-     * @param array objects
+     * (non-PHPdoc)
+     * @see Ariadne\Engine.Engine::search()
      */
-    public function addToIndex(ClassMetadata $metadata, array $objects);
+    public function search(ClassMetadata $metadata, Query $query)
+    {
+        return $this->getCommand('SearchIndex')->run($metadata, $query);
+    }
 
     /**
-     *  Removes the given objects from the index
-     *
-     * @param ClassMetadata $metadata
-     * @param array objects
+     * (non-PHPdoc)
+     * @see Ariadne\Engine.Engine::addToIndex()
      */
-    public function removeFromIndex(ClassMetadata $metadata, array $objects);
+    public function addToIndex(ClassMetadata $metadata, array $objects)
+    {
+        return $this->getCommand('AddToIndex')->run($metadata, $objects);
+    }
+
+    /**
+     * (non-PHPdoc)
+     * @see Ariadne\Client.Client::removeFromIndex()
+     */
+    public function removeFromIndex(ClassMetadata $metadata, array $objects)
+    {
+        return $this->getCommmand('RemoveFromIndex')->run($metadata, $objects);
+    }
+
+    /**
+     * (non-PHPdoc)
+     * @see Ariadne\Engine.Engine::createIndex()
+     */
+    public function createIndex(ClassMetadata $metadata)
+    {
+        return $this->getCommand('CreateIndex')->run($metadata);
+    }
+
+    /**
+     * (non-PHPdoc)
+     * @see Ariadne\Engine.Engine::dropIndex()
+     */
+    public function dropIndex(ClassMetadata $metadata)
+    {
+        return $this->getCommand('DropIndex')->run($metadata);
+    }
+
+    /**
+     * Get a mapper instance
+     *
+     * @param string $command
+     * @return Mapper $command
+     */
+    public function getCommand($command)
+    {
+        if (true === isset($this->commands[$command])) {
+            return $this->commands[$command];
+        }
+
+        $commandMap = $this->getAvailableCommands();
+
+        if (false === isset($commandMap[$command])) {
+            throw new \InvalidArgumentException("Unknown command $command");
+        }
+
+        $class = $commandMap[$command];
+
+        $this->commands[$command] = new $class($this);
+
+        return $this->commands[$command];
+    }
 }

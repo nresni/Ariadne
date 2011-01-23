@@ -1,6 +1,8 @@
 <?php
 namespace Ariadne;
 
+use Ariadne\Driver\Driver;
+
 use Ariadne\Driver\BaseDriver;
 
 use Ariadne\Engine\Engine;
@@ -48,7 +50,7 @@ class SearchManager
      * @param ClassMetadataFactory $mapping
      * @param Client http engine
      */
-    public function __construct(ClassMetadataFactory $mapping, BaseDriver $driver)
+    public function __construct(ClassMetadataFactory $mapping, Driver $driver)
     {
         $this->mapping = $mapping;
 

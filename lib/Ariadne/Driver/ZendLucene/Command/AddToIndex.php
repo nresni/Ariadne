@@ -1,5 +1,9 @@
 <?php
-namespace Ariadne\Driver\ZendLucene;
+namespace Ariadne\Driver\ZendLucene\Command;
+
+use Ariadne\Driver\Command;
+
+use Zend\Search\Lucene\Lucene;
 
 use Zend\Search\Lucene\Document\Field;
 use Zend\Search\Lucene\Document;
@@ -10,7 +14,7 @@ use Ariadne\Mapping\ClassMetadata;
  *
  * @author David Stendardi <david.stendardi@gmail.com>
  */
-class IndexMapper
+class AddToIndex extends Command
 {
     /**
      * Transforms given objects into a bulk add operation directive
@@ -19,26 +23,16 @@ class IndexMapper
      * @param array $objects
      * @param array bulk commands
      */
-    public function add(ClassMetadata $metadata, array $objects)
+    public function run(ClassMetadata $metadata, array $objects)
     {
-        $map = array();
+        $index = $metadata->getIndex()->getName();
+
+        $index = Lucene::open("/tmp/index_$index");
+
         foreach ($objects as $object) {
-            $map[] = $this->exportObject($metadata, $object);
+            $document = $this->exportObject($metadata, $object);
+            $index->addDocument($document);
         }
-
-        return $map;
-    }
-
-    /**
-     * Transforms given objects into a bulk delete operation
-     *
-     * @param ClassMetadata $metadata
-     * @param array $objects
-     * @return array bulk commands
-     */
-    public function remove(ClassMetadata $metadata, array $objects)
-    {
-        throw new \BadMethodCallException('not yet implemented');
     }
 
     /**
@@ -48,7 +42,7 @@ class IndexMapper
      * @param stdClass $object
      * @return array object
      */
-    public function exportObject(ClassMetadata $metadata, $object)
+    protected function exportObject(ClassMetadata $metadata, $object)
     {
         $document = new Document();
 

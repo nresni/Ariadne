@@ -1,26 +1,52 @@
 <?php
-namespace Ariadne\Driver\ElasticSearch;
+namespace Ariadne\Driver\ElasticSearch\Command;
+
+use Ariadne\Mapping\Element\Field\Binary;
+use Ariadne\Mapping\Element\Field\Number;
+use Ariadne\Mapping\Element\Field\Semantic;
+use Ariadne\Mapping\Element\Field\Date;
+use Ariadne\Mapping\Element\Field\String;
 
 use Ariadne\Mapping\ClassMetadata;
-use Ariadne\Mapping\Element\Embed;
-use Ariadne\Mapping\Element\Field\Date;
-use Ariadne\Mapping\Element\Field\Number;
-use Ariadne\Mapping\Element\Field\String;
-use Ariadne\Mapping\Element\Field\Semantic;
+use Ariadne\Driver\Command;
 
 /**
- * SchemaFactory
+ * Create an index with zend lucene
  *
  * @author David Stendardi <david.stendardi@gmail.com>
  */
-class SchemaMapper
+class CreateIndex extends Command
 {
+    /**
+     * Transforms given objects into a bulk add operation directive
+     *
+     * @param ClassMetadata $metadata
+     * @param array $objects
+     * @param array bulk commands
+     */
+    public function run(ClassMetadata $metadata)
+    {
+        $index = $metadata->getIndex();
+
+        $definition = $this->createSchema($metadata);
+
+        $settings = array('number_of_shards' => $index->getNumberOfShards(), 'number_of_replicas' => $index->getNumberOfReplicas());
+
+        $type = $metadata->getClassName();
+
+        $mappings = array($type => array('properties' => array()));
+
+        $mappings[$type]['properties'] = $this->exportProperties($metadata);
+
+        return $this->driver->getClient()->createIndex($index->getName(), array('settings' => $settings, 'mappings' => $mappings));
+    }
+
     /**
      * Transforms object metadata into a mapping definition
      *
      * @param ClassMetadata $metadata
      */
-    public function map(ClassMetadata $metadata)
+    public function createSchema(ClassMetadata $metadata)
     {
         $index = $metadata->getIndex();
 
@@ -115,5 +141,6 @@ class SchemaMapper
 
         return $definition;
     }
+
 
 }

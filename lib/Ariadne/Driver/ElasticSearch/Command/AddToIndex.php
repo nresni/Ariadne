@@ -1,14 +1,15 @@
 <?php
-namespace Ariadne\Driver\ElasticSearch;
+namespace Ariadne\Driver\ElasticSearch\Command;
 
 use Ariadne\Mapping\ClassMetadata;
+use Ariadne\Driver\Command;
 
 /**
  * Index mapper implementation for ElasticSearch
  *
  * @author David Stendardi <david.stendardi@gmail.com>
  */
-class IndexMapper
+class AddToIndex extends Command
 {
     /**
      * Transforms given objects into a bulk add operation directive
@@ -17,7 +18,21 @@ class IndexMapper
      * @param array $objects
      * @param array bulk commands
      */
-    public function add(ClassMetadata $metadata, array $objects)
+    public function run(ClassMetadata $metadata, array $objects)
+    {
+        $data = $this->createBulk($metadata, $objects);
+
+        return $this->driver->getClient()->bulk($data);
+    }
+
+    /**
+     * Transforms given objects into a bulk add operation directive
+     *
+     * @param ClassMetadata $metadata
+     * @param array $objects
+     * @param array bulk commands
+     */
+    public function createBulk(ClassMetadata $metadata, array $objects)
     {
         $index = $metadata->getIndex();
 
@@ -26,26 +41,6 @@ class IndexMapper
         foreach ($objects as $object) {
             $map[] = array('index' => array('_index' => $index->getName(), '_type' => $metadata->getClassName(), '_id' => $object->$idGetter()));
             $map[] = $this->exportObject($metadata, $object);
-        }
-
-        return $map;
-    }
-
-    /**
-     * Transforms given objects into a bulk delete operation
-     *
-     * @param ClassMetadata $metadata
-     * @param array $objects
-     * @return array bulk commands
-     */
-    public function remove(ClassMetadata $metadata, array $objects)
-    {
-        $index = $metadata->getIndex();
-
-        $idGetter = 'get' . self::camelize($index->getIdProperty());
-        $map = array();
-        foreach ($objects as $object) {
-            $map[] = array('delete' => array('_index' => $index->getName(), '_type' => $metadata->getClassName(), '_id' => $object->$idGetter()));
         }
 
         return $map;

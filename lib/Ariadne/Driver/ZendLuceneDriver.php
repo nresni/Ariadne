@@ -11,81 +11,39 @@ use Ariadne\Mapping\ClassMetadata;
  *
  * @author David Stendardi <david.stendardi@gmail.com>
  */
-class ZendLuceneDriver extends BaseDriver
+class ZendLuceneDriver extends Driver
 {
     /**
-     * @var array options
-     */
-    protected $options = array(
-      'result' => 'Ariadne\Driver\ZendLucene\ResultMapper',
-      'query'  => 'Ariadne\Driver\ZendLucene\QueryMapper',
-      'index'  => 'Ariadne\Driver\ZendLucene\IndexMapper',
-      'schema' => 'Ariadne\Driver\ZendLucene\SchemaMapper');
-
-    /**
      * (non-PHPdoc)
-     * @see Ariadne\Engine.Engine::search()
+     * @see Ariadne\Driver.BaseDriver::getName()
      */
-    public function search(ClassMetadata $metadata, Query $query)
+    public function getName()
     {
-        $index = $metadata->getIndex()->getName();
-
-        $type = $metadata->getClassName();
-
-        $query = $this->getMapper('query')->map($query);
-
-        $index = Lucene::open("/tmp/index_$index");
-
-        $response = $index->find($query);
-
-        return $this->getMapper('result')->map($response, $metadata);
+        return 'ZendLucene';
     }
 
     /**
      * (non-PHPdoc)
-     * @see Ariadne\Engine.Engine::addToIndex()
+     * @see Ariadne\Driver.BaseDriver::getAvailableCommands()
      */
-    public function addToIndex(ClassMetadata $metadata, array $objects)
+    public function getAvailableCommands()
     {
-        $index = $metadata->getIndex()->getName();
-
-        $index = Lucene::open("/tmp/index_$index");
-
-        $documents = $this->getMapper('index')->add($metadata, $objects);
-
-        foreach ($documents as $document) {
-            $index->addDocument($document);
-        }
+        return array(
+            'SearchIndex'     => 'Ariadne\Driver\ZendLucene\Command\SearchIndex',
+            'AddToIndex'      => 'Ariadne\Driver\ZendLucene\Command\AddToIndex',
+            'RemoveFromIndex' => 'Ariadne\Driver\ZendLucene\Command\RemoveFromIndex',
+            'CreateIndex'     => 'Ariadne\Driver\ZendLucene\Command\CreateIndex',
+            'DropIndex'       => 'Ariadne\Driver\ZendLucene\Command\DropIndex'
+        );
     }
 
     /**
-     * (non-PHPdoc)
-     * @see Ariadne\Client.Client::removeFromIndex()
+     * Set up a command
+     *
+     * @param unknown_type $command
      */
-    public function removeFromIndex(ClassMetadata $metadata, array $objects)
+    public function setupCommand($command)
     {
-        throw new \BadMethodCallException('not yet implemented');
-    }
-
-    /**
-     * (non-PHPdoc)
-     * @see Ariadne\Engine.Engine::createIndex()
-     */
-    public function createIndex(ClassMetadata $metadata)
-    {
-        $index = $metadata->getIndex()->getName();
-
-        Lucene::create("/tmp/index_$index");
-    }
-
-    /**
-     * (non-PHPdoc)
-     * @see Ariadne\Engine.Engine::dropIndex()
-     */
-    public function dropIndex(ClassMetadata $metadata)
-    {
-        $index = $metadata->getIndex()->getName();
-
-        @unlink("/tmp/index_$index");
+        return $command;
     }
 }
