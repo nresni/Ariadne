@@ -1,7 +1,7 @@
 Feature: Search 
   In order to find documents
   As an Ariadne user
-  I want to sort my results
+  I want to use the ariadne search manager
 
   Background:
     Given The "Ariadne\Tests\Fixture\Model\Article" index
@@ -11,33 +11,26 @@ Feature: Search
       | 3  | silvester   | 3.4  | 2004-05-20 |
       | 4  | arnold      | 2.4  | 2003-09-04 |
       | 5  | jean claude | 1.4  | 2005-09-10 |
-     And My search backend is ElasticSearch
-     And A new query for "Ariadne\Tests\Fixture\Model\Article"
+      And My search backend is ElasticSearch
 
-  Scenario: All sorted by title DESC
-    Given The query string is "*"
+  Scenario: Paginated search
+    Given A new query for "Ariadne\Tests\Fixture\Model\Article"
+      And The query string is "*"
       And The query default field is "title"
       And The query default operator is "or"
       And The query is sorted by "title" "desc"
+      And the query is limited to "3"
+      And the query start from "0"
      When I run the query
      Then I should have the following result
        | title       |
        | steven      |
        | silvester   |
        | jean claude |
+    Given the query start from "3"
+     When I run the query
+     Then I should have the following result
+       | title       |
        | chuck       |
        | arnold      |
 
-  Scenario: All sorted by rank
-    Given The query string is "*"
-      And The query default field is "title"
-      And The query default operator is "or"
-      And The query is sorted by "date" "asc"
-     When I run the query
-     Then I should have the following result
-       | title       |
-       | arnold      |
-       | silvester   |
-       | jean claude |
-       | steven      |
-       | chuck       |

@@ -13,12 +13,13 @@ Feature: Search
       | 4  | arnold      | 2.4  | 2003-09-04 |
       | 5  | jean claude | 1.4  | 2005-09-10 |
 
-  Scenario: Simple keyword search
+  Scenario: limit query
     Given A new query for "Ariadne\Tests\Fixture\Model\Article"
-      And The query string is "chuck"
-      And The query default field is "title"
-      And The query default operator is "and"
+      And The query string is "*"
+      And the query is limited to "3"
      When I run the query
      Then I should have the following result
        | title       |
        | chuck       |
+       | steven      |
+       | silvester   |

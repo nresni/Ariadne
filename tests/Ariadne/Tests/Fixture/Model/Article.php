@@ -20,13 +20,13 @@ class Article
 
     /**
      * @var float rate
-     * @search:Field\Number(type="float", index="not_analyzed")
+     * @search:Field\Number(type="float", index="not_analyzed", store="yes")
      */
     public $rate;
 
     /**
      * @var Date
-     * @search:Field\Date(format="Y-m-d", index="not_analyzed", precisionStep="4")
+     * @search:Field\Date(format="Y-m-d", index="not_analyzed", store="yes", precisionStep="4")
      */
     public $date;
 

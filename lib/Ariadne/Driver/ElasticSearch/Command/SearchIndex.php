@@ -49,7 +49,7 @@ class SearchIndex extends Command
             $map['query']['query_string'] = array();
             $map['query']['query_string']['query'] = $query->getQueryString()->getQuery();
             $map['query']['query_string']['default_field'] = $query->getQueryString()->getDefaultField();
-            $map['query']['query_string']['default_operator'] = $query->getQueryString()->getDefaultOperator();
+            $map['query']['query_string']['default_operator'] = $query->getQueryString()->getDefaultOperator() == Query::OPERATOR_AND ? 'and' : 'or';
         }
 
         foreach ($query->getSort() as $sort) {
@@ -74,7 +74,6 @@ class SearchIndex extends Command
         $foreign = json_decode($response->getBody());
 
         $result->setTotal($foreign->hits->total);
-
         foreach ($foreign->hits->hits as $foreignHit) {
             $hit = new Hit();
             $hit->setScore($foreignHit->_score);

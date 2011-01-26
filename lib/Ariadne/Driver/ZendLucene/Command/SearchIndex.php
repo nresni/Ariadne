@@ -1,6 +1,10 @@
 <?php
 namespace Ariadne\Driver\ZendLucene\Command;
 
+use Zend\Search\Lucene\Index\Term;
+
+use Zend\Search\Lucene\Search\Query\Wildcard;
+
 use Zend\Search\Lucene\Search\Query\Boolean;
 use Zend\Search\Lucene\Search\QueryParser;
 use Zend\Search\Lucene\Lucene;
@@ -11,7 +15,6 @@ use Ariadne\Query\Query;
 use Ariadne\Response\Result;
 use Ariadne\Response\Result\HitCollection;
 use Ariadne\Response\Result\Hit;
-
 
 /**
  * Create an index with zend lucene
@@ -30,9 +33,11 @@ class SearchIndex extends Command
 
         $type = $metadata->getClassName();
 
-        $query = $this->mapQuery($query);
+        $arguments = $this->mapQuery($query);
 
-        $response = Lucene::open("/tmp/index_$index")->find($query);
+        $index = Lucene::open("/tmp/index_$index");
+
+        $response = call_user_func_array(array($index, 'find'), $arguments);
 
         return $this->mapResult($response, $metadata);
     }
@@ -44,22 +49,40 @@ class SearchIndex extends Command
      */
     public function mapQuery(Query $query)
     {
+        $arguments = array();
+
         $map = new Boolean();
 
         if ($query->hasQueryString()) {
 
             Lucene::setDefaultSearchField($query->getQueryString()->getDefaultField());
 
-            QueryParser::setDefaultOperator($query->getQueryString()->getDefaultOperator());
+            QueryParser::setDefaultOperator($query->getQueryString()->getDefaultOperator() == Query::OPERATOR_AND ? QueryParser::B_AND : QueryParser::B_OR);
 
-            $map->addSubquery(QueryParser::parse($query->getQueryString()->getQuery()), true);
+            $keyword = $query->getQueryString()->getQuery();
+
+            if ("*" === $keyword) {
+                $subQuery = new Wildcard(new Term($keyword));
+                $subQuery->setMinPrefixLength(0);
+            } else {
+                $subQuery = QueryParser::parse($keyword);
+            }
+
+            $map->addSubquery($subQuery, true);
+        }
+
+        $arguments[] = $map;
+
+        foreach ($query->getSort() as $sort) {
+            $arguments[] = key($sort);
+            $arguments[] = SORT_REGULAR;
+            $arguments[] = current($sort) == 'asc' ? SORT_ASC : SORT_DESC;
         }
 
         Lucene::setResultSetLimit($query->getLimit());
 
-        return $map;
+        return $arguments;
     }
-
 
     /**
      * Transform the raw http response into a Generic Result object
