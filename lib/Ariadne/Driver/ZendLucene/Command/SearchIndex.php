@@ -37,9 +37,11 @@ class SearchIndex extends Command
 
         $index = Lucene::open("/tmp/index_$index");
 
-        $response = call_user_func_array(array($index, 'find'), $arguments);
+        $result = call_user_func_array(array($index, 'find'), $arguments);
 
-        return $this->mapResult($response, $metadata);
+        $result = array_slice($result, $query->getOffset(), $query->getLimit());
+
+        return $this->mapResult($result, $metadata);
     }
 
     /**
@@ -78,8 +80,6 @@ class SearchIndex extends Command
             $arguments[] = SORT_REGULAR;
             $arguments[] = current($sort) == 'asc' ? SORT_ASC : SORT_DESC;
         }
-
-        Lucene::setResultSetLimit($query->getLimit());
 
         return $arguments;
     }

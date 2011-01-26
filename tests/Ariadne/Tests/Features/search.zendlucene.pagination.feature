@@ -16,10 +16,20 @@ Feature: Search
   Scenario: limit query
     Given A new query for "Ariadne\Tests\Fixture\Model\Article"
       And The query string is "*"
+      And The query default field is "title"
+      And The query default operator is "or"
+      And The query is sorted by "title" "desc"
       And the query is limited to "3"
+      And the query start from "0"
+     When I run the query
+     Then I should have the following result
+       | title       |
+       | steven      |
+       | silvester   |
+       | jean claude |
+    Given the query start from "3"
      When I run the query
      Then I should have the following result
        | title       |
        | chuck       |
-       | steven      |
-       | silvester   |
+       | arnold      |
