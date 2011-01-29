@@ -39,9 +39,7 @@ class SearchIndex extends Command
 
         $result = call_user_func_array(array($index, 'find'), $arguments);
 
-        $result = array_slice($result, $query->getOffset(), $query->getLimit());
-
-        return $this->mapResult($result, $metadata);
+        return $this->mapResult($result, $metadata, $query);
     }
 
     /**
@@ -91,13 +89,15 @@ class SearchIndex extends Command
      * @param ClassMetadata $metadata
      * @return Result
      */
-    public function mapResult(array $foreignResult, ClassMetadata $metadata)
+    public function mapResult(array $foreignResult, ClassMetadata $metadata, $query)
     {
         $className = $metadata->getClassName();
 
         $result = new Result();
 
         $result->setTotal(count($foreignResult));
+
+        $foreignResult = array_slice($foreignResult, $query->getOffset(), $query->getLimit());
 
         foreach ($foreignResult as $foreignHit) {
 
