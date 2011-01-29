@@ -46,6 +46,10 @@ class AddToIndex extends Command
     {
         $document = new Document();
 
+        $idGetter = 'get' . self::camelize($metadata->getIndex()->getIdProperty());
+
+        $document->addField(Field::unIndexed('_id', $object->$idGetter()));
+
         foreach ($metadata->getFields() as $property => $field) {
 
             $getter = 'get' . self::camelize($property);
