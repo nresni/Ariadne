@@ -1,21 +1,21 @@
 <?php
-use Ariadne\Driver\ZendLuceneDriver;
+use Ariadne\Adapter\ZendLuceneAdapter;
 use Ariadne\Client\ElasticSearchClient;
-use Ariadne\Driver\ElasticSearchDriver;
+use Ariadne\Adapter\ElasticSearchAdapter;
 
 $steps->Given('/^My search backend is ElasticSearch$/', function($world) {
 
     $client = new ElasticSearchClient($world->httpClient);
 
-    $driver = new ElasticSearchDriver($client);
+    $driver = new ElasticSearchAdapter($client);
 
-    $world->searchManager->setDriver($driver);
+    $world->searchManager->setAdapter($driver);
 });
 
 
 $steps->Given('/^My search backend is ZendLucene$/', function($world) {
 
-    $driver = new ZendLuceneDriver();
+    $driver = new ZendLuceneAdapter();
 
-    $world->searchManager->setDriver($driver);
+    $world->searchManager->setAdapter($driver);
 });

@@ -1,5 +1,5 @@
 <?php
-namespace Ariadne\Driver\ElasticSearch\Command;
+namespace Ariadne\Adapter\ElasticSearch\Command;
 
 use Ariadne\Mapping\Element\Field\Binary;
 use Ariadne\Mapping\Element\Field\Number;
@@ -8,7 +8,7 @@ use Ariadne\Mapping\Element\Field\Date;
 use Ariadne\Mapping\Element\Field\String;
 
 use Ariadne\Mapping\ClassMetadata;
-use Ariadne\Driver\Command;
+use Ariadne\Adapter\Command;
 
 /**
  * Create an index with zend lucene

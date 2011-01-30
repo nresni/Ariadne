@@ -1,5 +1,5 @@
 <?php
-namespace Ariadne\Driver\ZendLucene\Command;
+namespace Ariadne\Adapter\ZendLucene\Command;
 
 use Zend\Search\Lucene\Index\Term;
 
@@ -8,7 +8,7 @@ use Zend\Search\Lucene\Search\Query\Wildcard;
 use Zend\Search\Lucene\Search\Query\Boolean;
 use Zend\Search\Lucene\Search\QueryParser;
 use Zend\Search\Lucene\Lucene;
-use Ariadne\Driver\Command;
+use Ariadne\Adapter\Command;
 use Ariadne\Mapping\ClassMetadata;
 use Ariadne\Query\Sort;
 use Ariadne\Query\Query;

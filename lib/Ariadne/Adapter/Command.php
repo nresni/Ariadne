@@ -1,12 +1,12 @@
 <?php
-namespace Ariadne\Driver;
+namespace Ariadne\Adapter;
 
 class Command
 {
     /**
      * The driver which instanciate the commands
      *
-     * @var Driver $driver
+     * @var Adapter $driver
      */
     protected $driver;
 
@@ -15,7 +15,7 @@ class Command
      *
      * @param Client http client
      */
-    public function __construct(Driver $driver)
+    public function __construct(Adapter $driver)
     {
         $this->driver = $driver;
     }

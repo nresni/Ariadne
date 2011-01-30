@@ -1,5 +1,5 @@
 <?php
-namespace Ariadne\Driver;
+namespace Ariadne\Adapter;
 
 use Ariadne\Query\Query;
 use Ariadne\Mapping\ClassMetadata;
@@ -11,7 +11,7 @@ use Ariadne\Client\ElasticSearchClient;
  *
  * @author David Stendardi <david.stendardi@gmail.com>
  */
-class ElasticSearchDriver extends Driver
+class ElasticSearchAdapter extends Adapter
 {
     /**
      * search client
@@ -32,7 +32,7 @@ class ElasticSearchDriver extends Driver
 
     /**
      * (non-PHPdoc)
-     * @see Ariadne\Driver.BaseDriver::getName()
+     * @see Ariadne\Adapter.BaseAdapter::getName()
      */
     public function getName()
     {
@@ -41,16 +41,16 @@ class ElasticSearchDriver extends Driver
 
     /**
      * (non-PHPdoc)
-     * @see Ariadne\Driver.BaseDriver::getAvailableCommands()
+     * @see Ariadne\Adapter.BaseAdapter::getAvailableCommands()
      */
     public function getAvailableCommands()
     {
         return array(
-            'SearchIndex'     => 'Ariadne\Driver\ElasticSearch\Command\SearchIndex',
-            'AddToIndex'      => 'Ariadne\Driver\ElasticSearch\Command\AddToIndex',
-            'RemoveFromIndex' => 'Ariadne\Driver\ElasticSearch\Command\RemoveFromIndex',
-            'CreateIndex'     => 'Ariadne\Driver\ElasticSearch\Command\CreateIndex',
-            'DropIndex'       => 'Ariadne\Driver\ElasticSearch\Command\DropIndex'
+            'SearchIndex'     => 'Ariadne\Adapter\ElasticSearch\Command\SearchIndex',
+            'AddToIndex'      => 'Ariadne\Adapter\ElasticSearch\Command\AddToIndex',
+            'RemoveFromIndex' => 'Ariadne\Adapter\ElasticSearch\Command\RemoveFromIndex',
+            'CreateIndex'     => 'Ariadne\Adapter\ElasticSearch\Command\CreateIndex',
+            'DropIndex'       => 'Ariadne\Adapter\ElasticSearch\Command\DropIndex'
         );
     }
 

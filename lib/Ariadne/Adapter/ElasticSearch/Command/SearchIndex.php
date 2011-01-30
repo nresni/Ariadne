@@ -1,5 +1,5 @@
 <?php
-namespace Ariadne\Driver\ElasticSearch\Command;
+namespace Ariadne\Adapter\ElasticSearch\Command;
 
 use Zend\Http\Response;
 
@@ -9,7 +9,7 @@ use Ariadne\Query\Query;
 use Ariadne\Response\Result;
 use Ariadne\Response\Result\HitCollection;
 use Ariadne\Response\Result\Hit;
-use Ariadne\Driver\Command;
+use Ariadne\Adapter\Command;
 
 /**
  * Create an index with zend lucene

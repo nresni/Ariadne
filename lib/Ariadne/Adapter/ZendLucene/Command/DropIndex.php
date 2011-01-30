@@ -1,8 +1,10 @@
 <?php
-namespace Ariadne\Driver\ElasticSearch\Command;
+namespace Ariadne\Adapter\ZendLucene\Command;
 
+use Ariadne\Adapter\Command;
+
+use Zend\Search\Lucene\Lucene;
 use Ariadne\Mapping\ClassMetadata;
-use Ariadne\Driver\Command;
 
 /**
  * Create an index with zend lucene
@@ -20,8 +22,8 @@ class DropIndex extends Command
      */
     public function run(ClassMetadata $metadata)
     {
-        $indexName = $metadata->getIndex()->getName();
+        $index = $metadata->getIndex()->getName();
 
-        return $this->driver->getClient()->dropIndex($indexName);
+        @unlink("/tmp/index_$index");
     }
 }

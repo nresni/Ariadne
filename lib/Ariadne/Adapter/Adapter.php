@@ -1,5 +1,5 @@
 <?php
-namespace Ariadne\Driver;
+namespace Ariadne\Adapter;
 
 use Ariadne\Query\Query;
 use Ariadne\Mapping\ClassMetadata;
@@ -12,7 +12,7 @@ use Ariadne\Mapping\ClassMetadata;
  *
  * @author David Stendardi <david.stendardi@gmail.com>
  */
-abstract class Driver
+abstract class Adapter
 {
     /**
      * @var array mappers
@@ -20,7 +20,7 @@ abstract class Driver
     protected $commands = array();
 
     /**
-     * @return String Driver name
+     * @return String Adapter name
      */
     abstract public function getName();
 

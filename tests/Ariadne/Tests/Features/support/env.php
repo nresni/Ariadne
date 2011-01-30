@@ -11,7 +11,7 @@ use Doctrine\Common\Annotations\AnnotationReader;
 use Doctrine\MongoDB\Connection;
 use Doctrine\ODM\MongoDB\DocumentManager;
 use Doctrine\ODM\MongoDB\Configuration;
-use Doctrine\ODM\MongoDB\Mapping\Driver\AnnotationDriver;
+use Doctrine\ODM\MongoDB\Mapping\Adapter\AnnotationDriver;
 
 
 // symfony component
@@ -26,7 +26,7 @@ use Zend\Http\Client;
 
 // elastic search client
 use Ariadne\Client\ElasticSearchClient;
-use Ariadne\Driver\ElasticSearchDriver;
+use Ariadne\Adapter\ElasticSearchAdapter;
 
 // mapping
 use Ariadne\Mapping\Loader\AnnotationLoader;
@@ -52,7 +52,7 @@ $mapping = new ClassMetadataFactory($loader);
 
 $client = new ElasticSearchClient($world->httpClient);
 
-$driver = new ElasticSearchDriver($client);
+$driver = new ElasticSearchAdapter($client);
 
 $world->searchManager = new SearchManager($mapping, $driver);
 

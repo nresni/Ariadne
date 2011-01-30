@@ -1,7 +1,7 @@
 <?php
-namespace Ariadne\Driver\ZendLucene\Command;
+namespace Ariadne\Adapter\ZendLucene\Command;
 
-use Ariadne\Driver\Command;
+use Ariadne\Adapter\Command;
 
 use Zend\Search\Lucene\Lucene;
 

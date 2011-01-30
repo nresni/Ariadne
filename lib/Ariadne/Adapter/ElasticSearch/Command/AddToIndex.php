@@ -1,8 +1,8 @@
 <?php
-namespace Ariadne\Driver\ElasticSearch\Command;
+namespace Ariadne\Adapter\ElasticSearch\Command;
 
 use Ariadne\Mapping\ClassMetadata;
-use Ariadne\Driver\Command;
+use Ariadne\Adapter\Command;
 
 /**
  * Index mapper implementation for ElasticSearch

@@ -1,17 +1,15 @@
 <?php
-namespace Ariadne\Driver\ZendLucene\Command;
+namespace Ariadne\Adapter\ElasticSearch\Command;
 
-use Ariadne\Driver\Command;
-
-use Zend\Search\Lucene\Lucene;
 use Ariadne\Mapping\ClassMetadata;
+use Ariadne\Adapter\Command;
 
 /**
  * Create an index with zend lucene
  *
  * @author David Stendardi <david.stendardi@gmail.com>
  */
-class CreateIndex extends Command
+class DropIndex extends Command
 {
     /**
      * Transforms given objects into a bulk add operation directive
@@ -22,8 +20,8 @@ class CreateIndex extends Command
      */
     public function run(ClassMetadata $metadata)
     {
-        $index = $metadata->getIndex()->getName();
+        $indexName = $metadata->getIndex()->getName();
 
-        Lucene::create("/tmp/index_$index");
+        return $this->driver->getClient()->dropIndex($indexName);
     }
 }

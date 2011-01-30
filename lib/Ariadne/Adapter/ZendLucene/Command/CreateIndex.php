@@ -1,7 +1,7 @@
 <?php
-namespace Ariadne\Driver\ZendLucene\Command;
+namespace Ariadne\Adapter\ZendLucene\Command;
 
-use Ariadne\Driver\Command;
+use Ariadne\Adapter\Command;
 
 use Zend\Search\Lucene\Lucene;
 use Ariadne\Mapping\ClassMetadata;
@@ -11,7 +11,7 @@ use Ariadne\Mapping\ClassMetadata;
  *
  * @author David Stendardi <david.stendardi@gmail.com>
  */
-class DropIndex extends Command
+class CreateIndex extends Command
 {
     /**
      * Transforms given objects into a bulk add operation directive
@@ -24,6 +24,6 @@ class DropIndex extends Command
     {
         $index = $metadata->getIndex()->getName();
 
-        @unlink("/tmp/index_$index");
+        Lucene::create("/tmp/index_$index");
     }
 }
