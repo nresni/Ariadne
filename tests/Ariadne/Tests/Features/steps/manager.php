@@ -1,7 +1,7 @@
 <?php
-use Ariadne\Adapter\ZendLuceneAdapter;
+use Ariadne\Adapter\ZendLucene\ZendLuceneAdapter;
 use Ariadne\Client\ElasticSearchClient;
-use Ariadne\Adapter\ElasticSearchAdapter;
+use Ariadne\Adapter\ElasticSearch\ElasticSearchAdapter;
 
 $steps->Given('/^My search backend is ElasticSearch$/', function($world) {
 

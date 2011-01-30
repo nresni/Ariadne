@@ -26,7 +26,7 @@ use Zend\Http\Client;
 
 // elastic search client
 use Ariadne\Client\ElasticSearchClient;
-use Ariadne\Adapter\ElasticSearchAdapter;
+use Ariadne\Adapter\ElasticSearch\ElasticSearchAdapter;
 
 // mapping
 use Ariadne\Mapping\Loader\AnnotationLoader;

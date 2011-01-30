@@ -1,6 +1,7 @@
 <?php
-namespace Ariadne\Adapter;
+namespace Ariadne\Adapter\ElasticSearch;
 
+use Ariadne\Adapter\Adapter;
 use Ariadne\Query\Query;
 use Ariadne\Mapping\ClassMetadata;
 use Ariadne\Engine\MapperFactory;

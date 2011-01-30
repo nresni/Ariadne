@@ -1,8 +1,9 @@
 <?php
-namespace Ariadne\Adapter;
+namespace Ariadne\Adapter\ZendLucene;
 
 use Zend\Search\Lucene\Lucene;
 
+use Ariadne\Adapter\Adapter;
 use Ariadne\Query\Query;
 use Ariadne\Mapping\ClassMetadata;
 
