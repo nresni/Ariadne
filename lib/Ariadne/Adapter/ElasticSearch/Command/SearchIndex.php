@@ -30,7 +30,7 @@ class SearchIndex extends Command
 
         $query = $this->mapQuery($query);
 
-        $response = $this->driver->getClient()->search($index, $type, $query);
+        $response = $this->adapter->getClient()->search($index, $type, $query);
 
         return $this->mapResult($response, $metadata);
     }

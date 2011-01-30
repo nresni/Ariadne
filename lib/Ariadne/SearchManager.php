@@ -21,9 +21,9 @@ class SearchManager
     protected $mapping;
 
     /**
-     * @var Engine $driver
+     * @var Engine $adapter
      */
-    protected $driver;
+    protected $adapter;
 
     /**
      * @var ProxyFactory
@@ -46,11 +46,11 @@ class SearchManager
      * @param ClassMetadataFactory $mapping
      * @param Client http engine
      */
-    public function __construct(ClassMetadataFactory $mapping, Adapter $driver)
+    public function __construct(ClassMetadataFactory $mapping, Adapter $adapter)
     {
         $this->mapping = $mapping;
 
-        $this->driver = $driver;
+        $this->adapter = $adapter;
     }
 
     /**
@@ -74,7 +74,7 @@ class SearchManager
     {
         $metadata = $this->getClassMetadata($className);
 
-        return $this->driver->createIndex($metadata);
+        return $this->adapter->createIndex($metadata);
     }
 
     /**
@@ -87,7 +87,7 @@ class SearchManager
     {
         $metadata = $this->getClassMetadata($className);
 
-        return $this->driver->dropIndex($metadata);
+        return $this->adapter->dropIndex($metadata);
     }
 
     /**
@@ -114,7 +114,7 @@ class SearchManager
         foreach ($this->insertions as $class => $objects) {
             $metadata = $this->mapping->getClassMetadata($class);
 
-            $this->driver->addToIndex($metadata, $objects);
+            $this->adapter->addToIndex($metadata, $objects);
         }
 
         $this->insertions = array();
@@ -122,7 +122,7 @@ class SearchManager
         foreach ($this->deletions as $class => $objects) {
             $metadata = $this->mapping->getClassMetadata($class);
 
-            $this->driver->removeFromIndex($metadata, $objects);
+            $this->adapter->removeFromIndex($metadata, $objects);
         }
 
         $this->deletions = array();
@@ -138,7 +138,7 @@ class SearchManager
     {
         $metadata = $this->getClassMetadata($query->getClassName());
 
-        return $this->driver->search($metadata, $query);
+        return $this->adapter->search($metadata, $query);
     }
 
     /**
@@ -159,18 +159,18 @@ class SearchManager
     }
 
     /**
-     * @return the $driver
+     * @return the $adapter
      */
     public function getAdapter()
     {
-        return $this->driver;
+        return $this->adapter;
     }
 
     /**
-     * @param Engine $driver
+     * @param Engine $adapter
      */
-    public function setAdapter($driver)
+    public function setAdapter($adapter)
     {
-        $this->driver = $driver;
+        $this->adapter = $adapter;
     }
 }

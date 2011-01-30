@@ -38,7 +38,7 @@ class CreateIndex extends Command
 
         $mappings[$type]['properties'] = $this->exportProperties($metadata);
 
-        return $this->driver->getClient()->createIndex($index->getName(), array('settings' => $settings, 'mappings' => $mappings));
+        return $this->adapter->getClient()->createIndex($index->getName(), array('settings' => $settings, 'mappings' => $mappings));
     }
 
     /**

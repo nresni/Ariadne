@@ -22,6 +22,6 @@ class DropIndex extends Command
     {
         $indexName = $metadata->getIndex()->getName();
 
-        return $this->driver->getClient()->dropIndex($indexName);
+        return $this->adapter->getClient()->dropIndex($indexName);
     }
 }

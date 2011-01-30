@@ -6,17 +6,17 @@ class Command
     /**
      * The driver which instanciate the commands
      *
-     * @var Adapter $driver
+     * @var Adapter $adapter
      */
-    protected $driver;
+    protected $adapter;
 
     /**
      * Set required dependencies
      *
      * @param Client http client
      */
-    public function __construct(Adapter $driver)
+    public function __construct(Adapter $adapter)
     {
-        $this->driver = $driver;
+        $this->adapter = $adapter;
     }
 }

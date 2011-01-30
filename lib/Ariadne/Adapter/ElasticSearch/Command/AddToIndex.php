@@ -22,7 +22,7 @@ class AddToIndex extends Command
     {
         $data = $this->createBulk($metadata, $objects);
 
-        return $this->driver->getClient()->bulk($data);
+        return $this->adapter->getClient()->bulk($data);
     }
 
     /**
