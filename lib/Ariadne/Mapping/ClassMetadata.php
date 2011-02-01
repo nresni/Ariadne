@@ -1,8 +1,9 @@
 <?php
 namespace Ariadne\Mapping;
 
+use Ariadne\Mapping\ClassMetadata;
+use Ariadne\Mapping\Element\Facet;
 use Ariadne\Mapping\Element\Embed;
-
 use Ariadne\Mapping\Element\Index;
 use Ariadne\Mapping\Element\Field;
 
@@ -97,7 +98,6 @@ class ClassMetadata
      * Adds a field to the index
      *
      * @param Field the field to add
-     *
      * @return ClassMetadata This object
      */
     public function addField($name, Field $field)
@@ -114,29 +114,84 @@ class ClassMetadata
         return $this;
     }
 
+    /**
+     * Add a Facet to the metadata
+     *
+     * @param string name
+     * @param Facet $facet
+     */
+    public function addFacet($name, Facet $facet)
+    {
+        if (! isset($this->facets[$name])) {
+            $this->facets[$name] = $facet;
+        }
+
+        return $this;
+    }
+
+    /**
+     * Add Embed
+     *
+     * @param string $name
+     * @param Embed $embed
+     */
     public function addEmbed($name, Embed $embed)
     {
         $this->embeds[$name] = $embed;
     }
 
+    /**
+     * Returns the embeds
+     *
+     * @return array $embed
+     */
     public function getEmbeds()
     {
         return $this->embeds;
     }
 
+    /**
+     * Sets the embedded metadata
+     *
+     * @param string $name
+     * @param ClassMetadata $metadata
+     */
     public function setEmbeddedMetadata($name, ClassMetadata $metadata)
     {
         $this->embeddedsMetadata[$name] = $metadata;
     }
 
+    /**
+     * Get the embedded metadata by name
+     *
+     * @param string $name
+     * @return ClassMetadata $metadata
+     */
     public function getEmbeddedMetadata($name)
     {
         return $this->embeddedsMetadata[$name];
     }
 
+    /**
+     * Get a field metadata
+     *
+     * @param string $name
+     * @return ClassMetadata
+     */
     public function getFieldMetadata($name)
     {
         return $this->fields[$name];
+    }
+
+    /**
+     * Get a facet methadata
+     *
+     * @param string $name
+     * @return ClassMetadata
+     */
+    public function getFacetMetadata($name)
+    {
+        return $this->facets[$name];
     }
 
     /**

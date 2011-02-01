@@ -20,6 +20,7 @@ class Article
 
     /**
      * @var float rate
+     * @search:Facet\Term()
      * @search:Field\Number(type="float", index="not_analyzed", store="yes")
      */
     public $rate;
