@@ -1,6 +1,8 @@
 <?php
 namespace Ariadne\Mapping\Loader;
 
+use Ariadne\Mapping\Element\Facet;
+
 use Ariadne\Mapping\Element\Embed;
 
 use Ariadne\Mapping\Element\Collection;
@@ -76,6 +78,10 @@ class AnnotationLoader implements LoaderInterface
                             throw new \InvalidArgumentException($violations);
                         }
                         $metadata->addField($property->getName(), $type);
+                    }
+                    if ($type instanceof Facet)
+                    {
+                        $metadata->addFacet($property->getName(), $type);
                     }
 
                     if ($type instanceof Embed) {
